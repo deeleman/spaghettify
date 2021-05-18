@@ -1,0 +1,30 @@
+{
+  "name": "spaghettify",
+  "version": "0.0.1",
+  "description": "JavaScript module that replaces regular navigation by an AJAX-driven experience.",
+  "main": "index.js",
+  "repository": "https://gituh.com/deeleman/spaghettify",
+  "author": "Pablo Deeleman <deeleman@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "dev": "parcel serve ./sandbox/index.html",
+    "build": "parcel build ./index.ts"
+  },
+  "dependencies": {
+    "whatwg-fetch": "^3.6.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "eslint": "^7.26.0",
+    "jest": "^26.6.3",
+    "parcel": "^2.0.0-beta.2",
+    "typescript": "^4.2.4"
+  },
+  "alias": {
+    "spaghettify": "./src"
+  }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spaghettify Sandbox</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="text/javascript" src="../index.ts"></script>
+  <script type="text/javascript">
+    new Spaghettify({
+      enabled: true,
+      routes: ['*.html', '/site/*'],
+      excludeByAttr: 'no-spa',
+      enableProgressBar: true,
+      persistedElementSelectors: ['select'],
+    });
+  </script>
+</head>
+<body>
+  <h1>Spaghettify Sandbox - Index</h1>
+  <main role="main">
+    <aside>
+      <ul>
+        <li><a href="index.html"><strong>Index</strong></a></li>
+        <li><a href="page-a.html">Page A</a></li>
+        <li><a href="page-b.html" data-no-spa="true">Page B</a></li>
+      </ul>
+    </aside>
+    <article>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elit dolor, facilisis ut iaculis a, sagittis nec nisi. Nulla facilisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla posuere libero non ante eleifend accumsan. Vivamus orci felis, pretium sed fringilla nec, ullamcorper eu nibh. Maecenas in metus condimentum mi ultrices efficitur. Proin pharetra in risus eu fermentum. In pharetra ac nunc et sodales. In suscipit sed erat ut viverra. Curabitur molestie aliquam quam pulvinar rhoncus. In eget nisl nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras odio libero, sollicitudin in nunc ut, ullamcorper efficitur tellus. Mauris felis dui, consectetur at suscipit sit amet, facilisis non erat. Nam bibendum sed nunc vitae sodales. Mauris pretium est sed eleifend ornare.
+        </p>
+        <p>
+        Mauris aliquam congue sapien, vel consectetur quam tincidunt consectetur. Phasellus faucibus, metus et cursus efficitur, turpis erat vehicula ex, eu vehicula augue ex scelerisque orci. Maecenas iaculis, ante pellentesque consequat tristique, turpis enim ornare mauris, eget porttitor enim libero nec nisi. Donec sed suscipit elit. Pellentesque nec malesuada turpis. Vestibulum vestibulum purus lorem, a accumsan risus sodales mattis. Integer tempor nisl at leo dapibus blandit. Cras vel ultricies turpis, sed placerat erat. Maecenas iaculis nunc in eros tristique facilisis. Cras non maximus tortor, sit amet vehicula diam. Pellentesque at interdum lacus. Phasellus id finibus nunc. Fusce quis sapien eget diam pulvinar dignissim rutrum porta quam. Praesent sed vehicula metus. Curabitur tellus metus, semper quis sem sit amet, tempus finibus lacus.
+        </p>
+        <p>
+        Nullam eget nisi suscipit purus ultricies fermentum sit amet at erat. Sed commodo placerat pretium. Nam commodo vehicula dolor, ut viverra odio dignissim in. Suspendisse blandit quam ex, quis vehicula nulla sollicitudin ac. Proin vel porta orci, ac porttitor odio. Duis pulvinar mi lectus, in convallis lacus malesuada et. Quisque efficitur ipsum nec leo cursus, et viverra urna convallis. Integer aliquet posuere volutpat.
+        </p>
+        <p>
+        Curabitur et eros malesuada quam maximus fermentum. Donec ex nisi, malesuada in feugiat vel, auctor at nunc. Donec in nunc imperdiet, rutrum justo nec, varius quam. Pellentesque eu rhoncus arcu. Nullam eros lacus, vulputate sollicitudin imperdiet sed, congue eu lorem. Quisque vulputate ultricies sagittis. Donec pharetra cursus ipsum non dictum.
+        </p>
+        <p>
+        Cras varius eu ipsum vel sagittis. Aliquam feugiat interdum tellus, tincidunt pretium ante finibus ut. Nunc faucibus nec felis vel dignissim. Vivamus elit libero, tincidunt sed aliquet sed, mattis a quam. Curabitur sed tempus massa. Fusce sed gravida diam. Aliquam erat volutpat. Quisque vestibulum rhoncus orci, at tempus erat facilisis non. Suspendisse dapibus neque eget velit consectetur blandit. Ut id interdum mi. Quisque faucibus sollicitudin scelerisque. Aenean et facilisis risus. Quisque at odio eu massa vehicula posuere molestie ut justo. Duis tincidunt sem eu pulvinar consectetur. Maecenas et ornare sapien, ultricies venenatis ipsum. Etiam vel rhoncus ante.
+        </p>
+    </article>
+  </main>
+</body>
+</html>

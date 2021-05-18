@@ -1,0 +1,9 @@
+* { font-family: Arial, Helvetica, sans-serif; }
+main {
+  display: flex;
+}
+
+aside {
+  min-width: 150px;
+  padding: auto 2em;
+}
