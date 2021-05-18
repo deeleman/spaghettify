@@ -1,5 +1,6 @@
-import { EventsListener } from './core';
-import { SpaghettifyConfig } from './types';
+import { EventsListener, StreamWriter } from './core';
+import { DOMPersistenceManager, DOMScriptsParser, historyHandler, routeFilter, webScraper } from './middleware';
+import { SpaghettifyConfig } from './spaghettify-config';
 
 /**
  * 
@@ -27,30 +28,27 @@ export class Spaghettify {
   }
 
   private processNavigationRequests(eventsListener: EventsListener): void {
-    /**
-    const streamWriter = new StreamWriter([
-      routeFilter(),
-      webScraper(),
-      scriptParser(),
-      stateManager(),
+    const { routes, enableProgressBar, persistSelectors } = this.options;
+    const middlewares = [
+      routeFilter(routes),
+      webScraper(enableProgressBar),
+      DOMScriptsParser(),
+      DOMPersistenceManager(persistSelectors),
       historyHandler(),
-    ]);
+    ];
+
+    const streamWriter = new StreamWriter(middlewares);
 
     streamWriter.onComplete((stream) => {
       if (stream.data) {
-        document.queryElement('body').innerHtml = stream.data;
         stream.event.preventDefault();
+        document.body.innerHTML = stream.data.outerHTML;
         eventsListener.refresh();
       }
     });
 
-    eventsListener.onEvent((htmlElement, event) => {
-      streamWriter.pipe({ DOMSnapshot, htmlElement, event });
-    });
-    */
-    eventsListener.onEvent((htmlElement, event) => {
-      console.log(htmlElement, event);
-      event.preventDefault();
+    eventsListener.onEvent((anchor, event) => {
+      streamWriter.pipe({ anchor, event });
     });
   }
 }

@@ -1,6 +1,6 @@
-import { Spaghettify } from './src';
+import { Spaghettify, SpaghettifyConfig } from './src';
 
-export { Spaghettify };
+export { Spaghettify, SpaghettifyConfig };
 
 Object.defineProperty(window, 'Spaghettify', {
   writable: false,
