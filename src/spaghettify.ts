@@ -1,3 +1,4 @@
+import './core/polyfills';
 import { EventsListener, StreamWriter } from './core';
 import { DOMPersistenceManager, DOMScriptsParser, historyHandler, routeFilter, webScraper } from './middleware';
 import { SpaghettifyConfig } from './spaghettify-config';

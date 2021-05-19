@@ -12,6 +12,7 @@
     "build": "parcel build ./index.ts"
   },
   "dependencies": {
+    "promise-polyfill": "^8.2.0",
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
