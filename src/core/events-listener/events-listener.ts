@@ -1,7 +1,9 @@
-import { AnchorEvent } from 'spaghettify/types';
+import { AnchorEvent } from './events-listener.types';
 
+/**  */
 type EventCallback = (anchor: HTMLAnchorElement, event: AnchorEvent) => void;
 
+/**  */
 export class EventsListener {
   private readonly elementEventListeners:  Array<{ element: HTMLAnchorElement; listener: EventListener }> = [];
   private readonly eventCallbacks: EventCallback[] = [];
@@ -14,6 +16,9 @@ export class EventsListener {
     this.refresh();
   }
 
+  /**
+   * 
+   */
   refresh(): void {
     const elements = this.window.document.querySelectorAll<HTMLAnchorElement>(this.selector);
     elements.forEach((element) => {
@@ -26,10 +31,17 @@ export class EventsListener {
     });
   }
   
+  /**
+   * 
+   * @param eventHandler 
+   */
   onEvent(eventHandler: EventCallback): void {
     this.eventCallbacks.push(eventHandler.bind(eventHandler));
   }
   
+  /**
+   * 
+   */
   dispose(): void {
     this.elementEventListeners.forEach(({ element, listener }) => {
       element.removeEventListener(this.elementEvent, listener);
