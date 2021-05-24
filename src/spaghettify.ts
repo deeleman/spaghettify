@@ -10,13 +10,20 @@ export class Spaghettify {
   private eventsListener?: EventsListener;
 
   private get anchorSelector(): string {
-    return this.options.excludeByAttr ? `a:not([data-${this.options.excludeByAttr}="true"])` : 'a';
+    const exclusionAttr = this.options.excludeByAttr;
+    const sanitizedExclusionAttr = exclusionAttr?.startsWith('data-') ? exclusionAttr : `data-${exclusionAttr}`;
+
+    return this.options.excludeByAttr ? `a:not([${sanitizedExclusionAttr}])` : 'a';
   }
 
   constructor(private readonly options: SpaghettifyConfig) {
     if (this.options.enabled) {
       document.addEventListener('DOMContentLoaded', () => {
-        this.eventsListener = new EventsListener(this.anchorSelector, 'click');
+        this.eventsListener = new EventsListener({
+          element: document.body,
+          elementEvent: 'click',
+          selector: this.anchorSelector,
+        });
         this.addNavigationRequestListener(this.eventsListener);
       });
 
