@@ -3,13 +3,14 @@
   "version": "0.0.1",
   "description": "JavaScript module that replaces regular navigation by an AJAX-driven experience.",
   "main": "index.js",
-  "repository": "https://gituh.com/deeleman/spaghettify",
+  "repository": "https://github.com/deeleman/spaghettify",
   "author": "Pablo Deeleman <deeleman@gmail.com>",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "parcel serve ./sandbox/index.html",
-    "build": "parcel build ./index.ts"
+    "dev": "concurrently \"parcel serve ./index.ts --dist-dir=./sandbox/bin\" \"yarn serve\"",
+    "build": "parcel build ./index.ts",
+    "serve": "lite-server --baseDir=\"sandbox\""
   },
   "dependencies": {
     "promise-polyfill": "^8.2.0",
@@ -20,8 +21,10 @@
     "@types/node": "^15.3.0",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
+    "concurrently": "^6.2.0",
     "eslint": "^7.26.0",
     "jest": "^26.6.3",
+    "lite-server": "^2.6.1",
     "parcel": "^2.0.0-beta.2",
     "typescript": "^4.2.4"
   },
