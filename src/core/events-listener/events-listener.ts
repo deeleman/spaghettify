@@ -13,14 +13,15 @@ export class EventsListener {
     private readonly selector: string,
     private readonly elementEvent: keyof HTMLElementEventMap,
   ) {
-    this.refresh();
+    this.attachListeners(this.window.document.body);
   }
 
   /**
    * 
    */
-  refresh(): void {
-    const elements = this.window.document.querySelectorAll<HTMLAnchorElement>(this.selector);
+  attachListeners(body: HTMLElement): void {
+    const elements = body.querySelectorAll<HTMLAnchorElement>(this.selector);
+
     elements.forEach((element) => {
       const listener: EventListener = (event: AnchorEvent) => {
         this.eventHandler(element, event);
@@ -42,7 +43,7 @@ export class EventsListener {
   /**
    * 
    */
-  dispose(): void {
+  detachListeners(): void {
     this.elementEventListeners.forEach(({ element, listener }) => {
       element.removeEventListener(this.elementEvent, listener);
     });
