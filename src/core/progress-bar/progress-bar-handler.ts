@@ -1,6 +1,6 @@
 import { LoadProgressHandler } from './progress-bar.types';
 
-export const PROGRESS_BAR_TRANSITION_MS = 400;
+export const PROGRESS_BAR_TRANSITION_MS = 200;
 
 const generateProgressBar = (document: Document): HTMLDivElement => {
   const divElement = document.createElement('div');
@@ -9,7 +9,7 @@ const generateProgressBar = (document: Document): HTMLDivElement => {
   divElement.style.top = '0';
   divElement.style.left = '0';
   divElement.style.width = '0%';
-  divElement.style.height = '5px';
+  divElement.style.height = '3px';
   divElement.style.transitionProperty = 'width';
   divElement.style.transitionDuration = `${PROGRESS_BAR_TRANSITION_MS/1000}s`;
   divElement.style.backgroundColor = '#c90000';
