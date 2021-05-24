@@ -7,13 +7,13 @@ export type MiddlewarePayload = {
   /**  */
   event: AnchorEvent;
   /**  */
-  rawData?: HTMLElement;
+  rawData?: Document;
    /**  */
   data?: HTMLElement;
 };
 
 /**  */
-export type MiddlewareHandler = (payload: MiddlewarePayload) => MiddlewarePayload | undefined;
+export type MiddlewareHandler = (payload: MiddlewarePayload) => MiddlewarePayload | Promise<MiddlewarePayload | undefined> | undefined;
 
 /**  */
 export type StreamMiddleware<T = undefined> = (props: T) => MiddlewareHandler;

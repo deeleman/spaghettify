@@ -1,5 +1,5 @@
-import './core/polyfills';
 import { EventsListener, StreamWriter } from './core';
+import './core/polyfills';
 import { DOMPersistenceManager, DOMScriptsParser, historyHandler, routeFilter, webScraper } from './middleware';
 import { SpaghettifyConfig } from './spaghettify-config';
 
@@ -17,18 +17,18 @@ export class Spaghettify {
     if (this.options.enabled) {
       document.addEventListener('DOMContentLoaded', () => {
         this.eventsListener = new EventsListener(this.anchorSelector, 'click');
-        this.processNavigationRequests(this.eventsListener);
+        this.addNavigationRequestListener(this.eventsListener);
       });
 
-      window.addEventListener('beforeunload', () => this.destroy());
+      window.addEventListener('beforeunload', this.destroy);
     }
   }
 
   destroy(): void {
-    this.eventsListener?.dispose();
+    this.eventsListener?.detachListeners();
   }
 
-  private processNavigationRequests(eventsListener: EventsListener): void {
+  private addNavigationRequestListener(eventsListener: EventsListener): void {
     const { routes, enableProgressBar, persistSelectors } = this.options;
     const middlewares = [
       routeFilter(routes),
@@ -42,9 +42,8 @@ export class Spaghettify {
 
     streamWriter.onComplete((stream) => {
       if (stream.data) {
-        stream.event.preventDefault();
-        document.body.innerHTML = stream.data.outerHTML;
-        eventsListener.refresh();
+        document.body = stream.data;
+        eventsListener.attachListeners(document.body);
       }
     });
 
