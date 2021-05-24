@@ -7,11 +7,17 @@ export const routeFilter = (routes: string[]): MiddlewareHandler => {
     .replace(/\./g, '\\.')
     .replace(/\+/g, '\\+')
     .replace(/\?/g, '\\?')
-    .replace(/\*/g, '.*');
+    .replace(/\*+/g, '.?');
 
-  const regex = new RegExp(routeRegexPattern, 'gi');
+  const routeRegex = new RegExp(routeRegexPattern, 'i');
 
   return (payload: MiddlewarePayload): MiddlewarePayload | undefined => {
-    return regex.test(payload.anchor.href) ? payload : void 0;
+    const isEligibleAnchor = routeRegex.test(payload.anchor.href);
+
+    if (isEligibleAnchor) {
+      payload.event.preventDefault();
+    }
+
+    return isEligibleAnchor ? payload : void 0
   };
 };
