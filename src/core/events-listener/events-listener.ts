@@ -3,31 +3,37 @@ import { AnchorEvent } from './events-listener.types';
 /**  */
 type EventCallback = (anchor: HTMLAnchorElement, event: AnchorEvent) => void;
 
+/** */
+type EventsListenerSettings = {
+  /** */
+  element: HTMLElement;
+  /** */
+  elementEvent: keyof HTMLElementEventMap;
+  /** */
+  selector: string;
+}
+
 /**  */
 export class EventsListener {
   private readonly elementEventListeners:  Array<{ element: HTMLAnchorElement; listener: EventListener }> = [];
   private readonly eventCallbacks: EventCallback[] = [];
-  private readonly window: Window = globalThis.window;
 
-  constructor(
-    private readonly selector: string,
-    private readonly elementEvent: keyof HTMLElementEventMap,
-  ) {
-    this.attachListeners(this.window.document.body);
+  constructor(private readonly settings: EventsListenerSettings) {
+    this.attachListeners(settings.element);
   }
 
   /**
    * 
    */
   attachListeners(body: HTMLElement): void {
-    const elements = body.querySelectorAll<HTMLAnchorElement>(this.selector);
+    const elements = body.querySelectorAll<HTMLAnchorElement>(this.settings.selector);
 
     elements.forEach((element) => {
       const listener: EventListener = (event: AnchorEvent) => {
         this.eventHandler(element, event);
       };
 
-      element.addEventListener(this.elementEvent, listener);
+      element.addEventListener(this.settings.elementEvent, listener);
       this.elementEventListeners.push({ element, listener });
     });
   }
@@ -45,7 +51,7 @@ export class EventsListener {
    */
   detachListeners(): void {
     this.elementEventListeners.forEach(({ element, listener }) => {
-      element.removeEventListener(this.elementEvent, listener);
+      element.removeEventListener(this.settings.elementEvent, listener);
     });
   }
 
