@@ -1,3 +1,5 @@
+import { LoadProgressHandler } from './core';
+
 /**  */
 export type SpaghettifyConfig = {
   /**  */
@@ -7,7 +9,7 @@ export type SpaghettifyConfig = {
   /**  */
   excludeByAttr?: string;
   /**  */
-  enableProgressBar?: boolean;
+  loadProgress?: boolean | LoadProgressHandler;
   /**  */
   persistSelectors?: string[];
 };

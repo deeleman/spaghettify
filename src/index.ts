@@ -1,2 +1,2 @@
 export * from './spaghettify';
-export * from './spaghettify-config';
+export * from './spaghettify.types';

@@ -1,32 +1,53 @@
-/**
- * Http Status mapping enum
- * @internal
- */
- enum HttpStatus {
-  Success     = 200,
-  Redirect    = 300,
-  ClientError = 400,
-  ServerError = 500
-}
+type HttpClientOptions = {
+  serializer?: (responseText: string) => unknown;
+  onLoadProgress?: (loadProgress: number) => void;
+};
 
 /**
  * @description
  * General purpose network client for scraping content from a given URL with
  * extended support for typed responses.
  * @param url URL of remote resource
- * @param serializer OPTIONAL: generic transform function that will serialize data before returning it
+ * @param options 
  * @returns Typed promise with response output, featuring error handling functionality
  */
-export const httpClient = async <T = string>(url: string, serializer?: (input: any) => T): Promise<T> => {
-  return fetch(url)
-    .then((response: Response) => {
-      if (response.ok && response.status >= HttpStatus.Success && response.status < HttpStatus.Redirect) {
-        return response.text();
-      } else {
-        const errorMessage = !response.ok ? 'Invalid Response' : `Http Error ${response.status}`;
-        throw new Error(errorMessage);
-      }
-    })
-    .then((data) => (serializer !== void 0 ? serializer(data) : data as unknown as T))
-    .catch((error: Error) => Promise.reject(error));
+export const httpClient = async <T = string>(url: string, options?: HttpClientOptions): Promise<T> => {
+  // Initialize request
+  const response = await fetch(url);
+
+  // Spin up a binary stream reader and declare tracking tokens so we can keep track of HTTP GET download progress
+  const streamReader = response.body!.getReader();
+  const binaryBodyChunks = [];
+  const contentLength = +(response.headers.get('Content-Length') || 0); // Total length
+  let receivedContentLength = 0;
+
+  // Runs a tick-based loop to iteratively read stream progress
+  while (true) {
+    const { done, value } = await streamReader.read();
+  
+    if (done) {
+      break;
+    }
+  
+    binaryBodyChunks.push(value);
+    receivedContentLength += value !== void 0 ? value.length : 0;
+
+    if (options?.onLoadProgress !== void 0) {
+      options.onLoadProgress(Math.floor((receivedContentLength / contentLength) * 100));
+    }
+  }
+  
+  // Recompile chunks into a single Uint8Array
+  const uint8Array = new Uint8Array(receivedContentLength);
+  let position = 0;
+
+  for (let binaryBodyChunk of binaryBodyChunks) {
+    uint8Array.set(binaryBodyChunk as Uint8Array, position); // (4.2)
+    position += binaryBodyChunk ? binaryBodyChunk.length : 0;
+  }
+
+  // Decode recompiled binary array into plain string and return results
+  const responseText = new TextDecoder("utf-8").decode(uint8Array);
+
+  return options?.serializer !== void 0 ? options.serializer(responseText) : responseText as unknown as T;
 };

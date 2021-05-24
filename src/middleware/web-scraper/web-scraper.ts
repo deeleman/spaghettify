@@ -1,17 +1,25 @@
-import { MiddlewareHandler, MiddlewarePayload, httpClient } from 'spaghettify/core'
+import { httpClient, LoadProgressHandler, MiddlewareHandler, MiddlewarePayload, PROGRESS_BAR_TRANSITION_MS } from 'spaghettify/core';
 
 /**
  * 
- * @param enableProgressBar 
+ * @param onLoadProgress 
  * @returns 
  */
-export const webScraper = (enableProgressBar?: boolean): MiddlewareHandler => {
+export const webScraper = (onLoadProgress?: LoadProgressHandler): MiddlewareHandler => {
   const responseDOMParser = new DOMParser();
-  const responseDOMSerializer = (responseText: string) => responseDOMParser.parseFromString(responseText, 'text/html');
+  const serializer = (responseText: string) => responseDOMParser.parseFromString(responseText, 'text/html');
 
   return async (payload: MiddlewarePayload): Promise<MiddlewarePayload> => {
     const { href } = payload.anchor;
-    const scrapedPageDOM = await httpClient<Document>(href, responseDOMSerializer);
+
+    if (onLoadProgress !== void 0) {
+      onLoadProgress(0);
+    }
+
+    const scrapedPageDOM = await httpClient<Document>(href, { serializer, onLoadProgress });
+
+    // If onLoadProgress is provided middleware finalization is deferred to next transition tick to ensure full progress bar rendering
+    await new Promise((resolve) => setTimeout(resolve, onLoadProgress !== void 0 ? PROGRESS_BAR_TRANSITION_MS + 1 : 0));
 
     return {
       ...payload,
