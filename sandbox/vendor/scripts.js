@@ -1,3 +1,1 @@
-window.onload = function() {
-  alert('Welcome to this page');
-};
+alert('Welcome to this page');

@@ -52,6 +52,7 @@ export class Spaghettify {
     streamWriter.onComplete((stream) => {
       if (stream.data) {
         document.body = stream.data;
+        stream.scriptElements?.forEach((scriptElement) => document.body.appendChild(scriptElement));
         eventsListener.attachListeners(document.body);
       }
     });
