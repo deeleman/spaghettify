@@ -32,6 +32,10 @@ export const progressBarHandler = (document: Document, loadProgress?: LoadProgre
     }
 
     progressBarElement.style.width = `${loadProgress}%`;
+
+    if (loadProgress === 100) {
+      setTimeout(() => { progressBarElement.remove(); }, PROGRESS_BAR_TRANSITION_MS - 1);
+    }
   };
 
   return typeof loadProgress === 'boolean' ? builtinLoadProgressHandler : loadProgress;

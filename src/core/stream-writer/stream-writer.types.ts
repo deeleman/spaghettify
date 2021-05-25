@@ -7,6 +7,8 @@ export type MiddlewarePayload = {
   /**  */
   event: AnchorEvent;
   /**  */
+  rawData?: Document;
+  /**  */
   data?: HTMLElement;
   /** */
   scriptElements?: HTMLScriptElement[];

@@ -40,17 +40,19 @@ export class Spaghettify {
     const onLoadProgressHandler = progressBarHandler(document, loadProgress); 
 
     const middlewares = [
+      // onBeforeCompleteMiddleware
       routeFilter(routes),
       webScraper(onLoadProgressHandler),
-      DOMScriptsParser(),
       DOMPersistenceManager(persistSelectors),
-      historyHandler(),
+      // onAfterCompleteMiddleware
+      historyHandler(window),
+      DOMScriptsParser(),
     ];
 
     const streamWriter = new StreamWriter(middlewares);
 
     streamWriter.onComplete((stream) => {
-      if (stream.data) {
+      if (stream?.data) {
         document.body = stream.data;
         stream.scriptElements?.forEach((scriptElement) => document.body.appendChild(scriptElement));
         eventsListener.attachListeners(document.body);

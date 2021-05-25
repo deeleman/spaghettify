@@ -19,10 +19,12 @@ export const webScraper = (onLoadProgress?: LoadProgressHandler): MiddlewareHand
     const scrapedPageDOM = await httpClient<Document>(href, { serializer, onLoadProgress });
 
     // If onLoadProgress is provided, middleware finalization is deferred to next transition tick to ensure full progress bar rendering
-    await new Promise((resolve) => setTimeout(resolve, onLoadProgress !== void 0 ? PROGRESS_BAR_TRANSITION_MS + 1 : 0));
+    const deferRate = onLoadProgress !== void 0 ? PROGRESS_BAR_TRANSITION_MS : 0;
+    await new Promise((resolve) => setTimeout(resolve, deferRate));
 
     return {
       ...payload,
+      rawData: scrapedPageDOM,
       data: scrapedPageDOM.body,
     };
   };

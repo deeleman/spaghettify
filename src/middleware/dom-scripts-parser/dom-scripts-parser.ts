@@ -12,7 +12,7 @@ export const DOMScriptsParser = (): MiddlewareHandler => {
     const scriptElements: HTMLScriptElement[] = [];
 
     scriptElementNodeList.forEach((scriptElement) => {
-      const childScriptElement = payload.data?.ownerDocument.createElement('script') as HTMLScriptElement;
+      const childScriptElement = payload.rawData?.createElement('script') as HTMLScriptElement;
       childScriptElement.type = 'text/javascript';
 
       if (scriptElement.src) {
