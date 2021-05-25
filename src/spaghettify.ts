@@ -39,22 +39,22 @@ export class Spaghettify {
     const { routes, loadProgress, persistSelectors } = this.options;
     const onLoadProgressHandler = progressBarHandler(document, loadProgress); 
 
-    const middlewares = [
-      // onBeforeCompleteMiddleware
+    const onBeforeComplete = [
       routeFilter(routes),
       webScraper(onLoadProgressHandler),
       DOMPersistenceManager(persistSelectors),
-      // onAfterCompleteMiddleware
+    ];
+
+    const onAfterComplete = [
       historyHandler(window),
       DOMScriptsParser(),
     ];
 
-    const streamWriter = new StreamWriter(middlewares);
+    const streamWriter = new StreamWriter({ onBeforeComplete, onAfterComplete });
 
     streamWriter.onComplete((stream) => {
       if (stream?.data) {
         document.body = stream.data;
-        stream.scriptElements?.forEach((scriptElement) => document.body.appendChild(scriptElement));
         eventsListener.attachListeners(document.body);
       }
     });

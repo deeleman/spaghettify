@@ -10,8 +10,6 @@ export type MiddlewarePayload = {
   rawData?: Document;
   /**  */
   data?: HTMLElement;
-  /** */
-  scriptElements?: HTMLScriptElement[];
 };
 
 /**  */

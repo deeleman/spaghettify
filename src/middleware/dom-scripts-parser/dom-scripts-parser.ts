@@ -21,13 +21,12 @@ export const DOMScriptsParser = (): MiddlewareHandler => {
         childScriptElement.insertAdjacentText('afterbegin' , scriptElement.innerText);
       }
       
-      scriptElements.push(childScriptElement);
       scriptElement.remove();
+      scriptElements.push(childScriptElement);
     });
+
+    scriptElements?.forEach((scriptElement) => payload.data!.appendChild(scriptElement));
     
-    return {
-      ...payload,
-      scriptElements
-    };
+    return payload;
   };
 };
