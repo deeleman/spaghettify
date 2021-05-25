@@ -1,7 +1,7 @@
 import { MiddlewareHandler, MiddlewarePayload } from 'spaghettify/core/stream-writer'
 
 /**  */
-export const routeFilter = (routes: string[]): MiddlewareHandler => {
+export const linkInterceptor = (routes: string[]): MiddlewareHandler => {
   const routeRegexPattern = routes.join('|')
     .replace(/\//g, '\\/')
     .replace(/\./g, '\\.')

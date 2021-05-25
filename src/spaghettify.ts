@@ -1,6 +1,6 @@
 import { EventsListener, progressBarHandler, StreamWriter } from './core';
 import './core/polyfills';
-import { DOMPersistenceManager, DOMScriptsParser, historyHandler, routeFilter, webScraper } from './middleware';
+import { DOMPersistenceManager, DOMScriptsParser, historyHandler, linkInterceptor, webScraper } from './middleware';
 import { SpaghettifyConfig } from './spaghettify.types';
 
 /**
@@ -37,12 +37,12 @@ export class Spaghettify {
 
   private addNavigationRequestListener(eventsListener: EventsListener): void {
     const { routes, loadProgress, persistSelectors } = this.options;
-    const onLoadProgressHandler = progressBarHandler(document, loadProgress); 
+    const onLoadProgressHandler = progressBarHandler(document, loadProgress);
 
     const onBeforeComplete = [
-      routeFilter(routes),
+      linkInterceptor(routes),
       webScraper(onLoadProgressHandler),
-      DOMPersistenceManager(persistSelectors),
+      DOMPersistenceManager(window, persistSelectors),
     ];
 
     const onAfterComplete = [
