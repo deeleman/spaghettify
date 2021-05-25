@@ -2,7 +2,7 @@
   "name": "spaghettify",
   "version": "0.0.1",
   "description": "JavaScript module that replaces regular navigation by an AJAX-driven experience.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/deeleman/spaghettify",
   "author": "Pablo Deeleman <deeleman@gmail.com>",
   "license": "MIT",
