@@ -9,7 +9,7 @@ export type SpaghettifyConfig = {
   /**  */
   excludeByAttr?: string;
   /**  */
-  loadProgress?: boolean | LoadProgressHandler;
+  persistAttr?: string;
   /**  */
-  persistSelectors?: string[];
+  loadProgress?: boolean | LoadProgressHandler;
 };

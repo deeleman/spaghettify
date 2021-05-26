@@ -13,7 +13,7 @@
       routes: ['*.html', 'content/*'],
       excludeByAttr: 'no-spa',
       loadProgress: true,
-      persistedElementSelectors: ['select'],
+      persistAttr: 'data-persist',
     });
   </script>
 </head>
@@ -29,6 +29,20 @@
         <li><a href="content/index.html">Child Content Index</a></li>
         <li><a href="content/page-e.html">Child Content Subpage</a></li>
       </ul>
+      <div>
+        Rate our site: 
+        <select data-persist="rating">
+          <option>*</option>
+          <option>**</option>
+          <option>***</option>
+          <option>****</option>
+          <option>*****</option>
+        </select>
+        <label>
+          <p>Subscribe to our newsletter</p>
+          <input type="text" value="" placeholder="Your email" data-persist="email">
+        </label>
+      </div>
     </aside>
     <article>
         <p>

@@ -36,13 +36,13 @@ export class Spaghettify {
   }
 
   private addNavigationRequestListener(eventsListener: EventsListener): void {
-    const { routes, loadProgress, persistSelectors } = this.options;
+    const { routes, loadProgress, persistAttr } = this.options;
     const onLoadProgressHandler = progressBarHandler(document, loadProgress);
 
     const onBeforeComplete = [
       linkInterceptor(routes),
       webScraper(onLoadProgressHandler),
-      DOMPersistenceManager(window, persistSelectors),
+      DOMPersistenceManager(document.body, persistAttr),
     ];
 
     const onAfterComplete = [
