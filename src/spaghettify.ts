@@ -44,7 +44,7 @@ export class Spaghettify {
       webScraper(onLoadProgressHandler),
       DOMPersistenceManager(document.body, persistAttr),
     ];
-
+    
     const onAfterComplete = [
       historyHandler(window),
       DOMScriptsParser(),

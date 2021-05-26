@@ -32,6 +32,8 @@
           <p>Subscribe to our newsletter</p>
           <input type="text" value="" placeholder="Your email" data-persist="email">
         </label>
+        <script>function subscribe() { document.getElementById('submit').value = 'Subscribed'; }</script>
+        <input id="submit" data-persist="submit" type="submit" value="Send" onclick="subscribe()">
       </div>
     </aside>
     <article>

@@ -1,32 +1,23 @@
 import { MiddlewareHandler, MiddlewarePayload } from 'spaghettify/core/stream-writer'
 
-const persistedElements = new Map<string, Element>();
-
-const persistenceWatch = (elementPersistenceKey: string, element: Element): void => {
-  const observer = new MutationObserver(() => {
-    persistedElements.set(elementPersistenceKey, element);
-  });
-  
-  observer.observe(element, { childList: true, subtree: true });
-};
+const persistedElementsMap = new Map<string, Node>();
 
 const persistElements = (targetElement: Element, persistAttr: string): void => {
   const elementsToPersist = targetElement.querySelectorAll(`*[${persistAttr}]`);
 
   elementsToPersist.forEach((element) => {
-    let elementPersistenceKey = element.getAttribute(persistAttr)!;
-    
-    if (!persistedElements.has(elementPersistenceKey)) {
-      persistedElements.set(elementPersistenceKey, element);
-      persistenceWatch(elementPersistenceKey, element);
-    } else {
-      const persistedElement = persistedElements.get(elementPersistenceKey) as Element;
+    const elementPersistenceKey = element.getAttribute(persistAttr)!;
 
-      if (persistedElement.nodeType !== element.nodeType) {
-        throw new Error(`There is more than one element persisted with the "${persistAttr}" data attribute value.`);
+    if (persistedElementsMap.has(elementPersistenceKey)) {
+      const persistedElement = persistedElementsMap.get(elementPersistenceKey);
+
+      if (persistedElement !== void 0 && persistedElement.nodeType !== element.nodeType) {
+        throw new Error(`There is more than one element with the "${persistAttr}" data attribute set to "${elementPersistenceKey}"".`);
       }
 
-      element.replaceWith(persistedElement);
+      element.replaceWith(persistedElement!);
+    } else {
+      persistedElementsMap.set(elementPersistenceKey, element);
     }
   });
 };
@@ -37,9 +28,7 @@ export const DOMPersistenceManager = (body: Element, persistAttribute: string = 
   persistElements(body, sanitizedPersistAttr);
 
   return (payload: MiddlewarePayload): MiddlewarePayload => {
-    if (payload.data !== void 0) {
-      persistElements(payload.data, sanitizedPersistAttr);
-    }
+    persistElements(payload.data!, sanitizedPersistAttr);
 
     return payload;
   };
