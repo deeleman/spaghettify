@@ -7,4 +7,4 @@ Object.defineProperty(window, 'Spaghettify', {
   enumerable: true,
   configurable: false,
   value: Spaghettify,
-})
+});
