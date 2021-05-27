@@ -5,7 +5,7 @@ export const PROGRESS_BAR_TRANSITION_MS = 200;
 const generateProgressBar = (document: Document): HTMLDivElement => {
   const divElement = document.createElement('div');
   divElement.id = '__spaghettifyProgressBar';
-  divElement.style.position = 'absolute';
+  divElement.style.position = 'fixed';
   divElement.style.top = '0';
   divElement.style.left = '0';
   divElement.style.width = '0%';
