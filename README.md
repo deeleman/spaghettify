@@ -76,7 +76,6 @@ The Spaghettify configuration settings object can be summarised as follows:
 |`excludeByAttr`|`String`|`undefined`|Defines an exclusion data attribute token (with or without the `data-` prefix). Links decorated with this attribute will be bypassed by Spaghettify|
 |`loadProgress`|`Boolean` `Function`|`false`|Enables a built-in progress bar or not. It can also take a function handler that will receive a percentage progress integer upon load. |
 |`persistAttr`|`String`|`undefined`|**Still in alpha state.** Defines an UI state persistence flag data attribute (with or without the `data-` prefix). Elements decorated with this attribute will persist their state across page navigation.  |
-|||||
 
 Please note that all configuration options are optional and will take the default value if not explicitly declared.
 
