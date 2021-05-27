@@ -38,7 +38,7 @@ export class StreamWriter {
     payload: MiddlewarePayload,
     middlewareHandlers: MiddlewareHandler[],
   ): Promise<MiddlewarePayload | undefined> {
-    let streamPayload: MiddlewarePayload | undefined = payload;
+    let streamPayload: MiddlewarePayload | undefined = {...payload }; // Ensures Immutability
 
     for (const middlewareHandler of middlewareHandlers) {
       streamPayload = await middlewareHandler(streamPayload!);
