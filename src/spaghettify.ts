@@ -17,7 +17,7 @@ export class Spaghettify {
   }
 
   constructor(private readonly options: SpaghettifyConfig) {
-    if (this.options.enabled) {
+    if (this.options.enabled === void 0 || this.options.enabled === true) {
       document.addEventListener('DOMContentLoaded', () => {
         this.eventsListener = new EventsListener({
           element: document.body,
@@ -40,7 +40,7 @@ export class Spaghettify {
     const onLoadProgressHandler = progressBarHandler(document, loadProgress);
 
     const onBeforeComplete = [
-      linkInterceptor(routes),
+      linkInterceptor(routes || ['*']),
       webScraper(onLoadProgressHandler),
       DOMPersistenceManager(document.body, persistAttr),
     ];

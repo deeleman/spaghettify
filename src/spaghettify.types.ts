@@ -3,9 +3,9 @@ import { LoadProgressHandler } from './core';
 /**  */
 export type SpaghettifyConfig = {
   /**  */
-  routes: string[];
+  routes?: string[];
   /**  */
-  enabled: boolean;
+  enabled?: boolean;
   /**  */
   excludeByAttr?: string;
   /**  */
