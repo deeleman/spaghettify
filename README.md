@@ -39,6 +39,7 @@ The sandbox site is a small, uber-simplistic web application that serves as a pl
 - Content is scattered in between the `/sandbox` root level and a child `/sandbox/content` subfolder so contributors can play around with link selectors pointing to subfolders, if necessary.
 - The main body contains dummy text with slight variations to ensure the page transition is noticeable.
 - The side menu contains diverse input controls to validate state persistence accross navigated pages.
+- Page A and pages within `/sandbox/content` feature either inline or imported custom JavaScript that Spaghettify will kindly digest.
 - Spaghettify supports forward and backwards history navigation. Browse around and give it a shot!
 
 
