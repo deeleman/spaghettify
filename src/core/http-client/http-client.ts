@@ -11,7 +11,7 @@ type HttpClientOptions = {
  * @param options 
  * @returns Typed promise with response output, featuring error handling functionality
  */
-export const httpClient = async <T = string>(url: string, options?: HttpClientOptions): Promise<T> => {
+export const httpClient = async <T extends any>(url: string, options?: HttpClientOptions): Promise<T> => {
   // Initialize request
   const response = await fetch(url);
 
@@ -49,5 +49,9 @@ export const httpClient = async <T = string>(url: string, options?: HttpClientOp
   // Decode recompiled binary array into plain string and return results
   const responseText = new TextDecoder("utf-8").decode(uint8Array);
 
-  return options?.serializer !== void 0 ? options.serializer(responseText) : responseText as unknown as T;
+  if (options?.serializer !== void 0) {
+    return options.serializer(responseText) as T;
+  }
+
+  return responseText as unknown as T;
 };
