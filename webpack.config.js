@@ -4,17 +4,22 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 module.exports = (env, options) => ({
   entry: path.resolve(__dirname, 'src'),
 
-  watch: options.mode === 'development',
-
   output: {
     filename: 'spaghettify.js',
-    path: path.resolve(__dirname, options.mode === 'production' ? 'dist' : 'sandbox/bin'),
+    path: path.resolve(__dirname, options.mode === 'production' ? 'dist' : 'sandbox/temp'),
     library: 'Spaghettify',
-    type: 'var',
   },
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json']
+  },
+
+  devServer: {
+    contentBase: path.join(__dirname, 'sandbox'),
+    compress: false, // Falsey, otherwise download progress stream cannot be logged
+    hot: true,
+    inline: false,
+    port: 3000,
   },
 
   module: {

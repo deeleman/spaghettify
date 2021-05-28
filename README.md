@@ -13,9 +13,9 @@ The entire project is built on top of TypeScript and implements several polyfill
 ## Setting up your environment
 The minimum requirements for running this project, either on development or production mode, and its development scripts are `node v12.16.0` and `npm v.6.14.15`, or later versions. Probably this project will run smoothly on older versions of `node` and `npm` but we recommend using the latest [LTS versions](https://nodejs.org/).
 
-This project relies on [BabelJS](https://babeljs.io/) and [Webpack](https://https://webpack.js.org//) for compiling code in dev mode, running builds and handling code optimisations. The web server functionality leverages relies on [Lite-Server](https://github.com/johnpapa/lite-server).
+This project relies on [BabelJS](https://babeljs.io/) and [Webpack](https://https://webpack.js.org//) for compiling code in dev mode, running builds serve the demo site files and handling code optimisations.
 
-All interaction with `BabelJS`, `Webpack` and `Lite-Server` has been abstracted away in custom npm scripts for your convenience. 
+All interaction with `BabelJS` and `Webpack` has been abstracted away in custom npm scripts for your convenience. 
 
 ### Installing dependencies
 As a first step to spawn a development environment or production build, please run either `yarn` or `npm install` to pull all the required dependencies for this project.
