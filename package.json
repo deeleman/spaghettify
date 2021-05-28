@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "concurrently \"yarn web:dev\" \"yarn serve\"",
+    "dev": "concurrently \"yarn dev:watch\" \"yarn serve\"",
     "dev:watch": "yarn clean && webpack --mode development",
     "serve": "lite-server --baseDir=\"sandbox\"",
     "build": "yarn clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack  --mode production",
