@@ -10,6 +10,7 @@ module.exports = (env, options) => ({
     filename: 'spaghettify.js',
     path: path.resolve(__dirname, options.mode === 'production' ? 'dist' : 'sandbox/bin'),
     library: 'Spaghettify',
+    type: 'var',
   },
 
   resolve: {

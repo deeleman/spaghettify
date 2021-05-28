@@ -1,4 +1,4 @@
-new Spaghettify.Spaghettify({
+new Spaghettify({
   enabled: true,
   routes: ['*.html', 'content/*'],
   excludeByAttr: 'no-spa',
