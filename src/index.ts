@@ -1,2 +1,1 @@
-export * from './spaghettify';
-export * from './spaghettify.types';
+export { Spaghettify } from './spaghettify';

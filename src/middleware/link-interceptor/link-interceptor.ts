@@ -1,4 +1,4 @@
-import { MiddlewareHandler, MiddlewarePayload } from 'spaghettify/core/stream-writer'
+import { MiddlewareHandler, MiddlewarePayload } from '../../core/stream-writer'
 
 /**  */
 export const linkInterceptor = (routes: string[]): MiddlewareHandler => {

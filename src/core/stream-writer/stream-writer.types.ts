@@ -1,4 +1,4 @@
-import { AnchorEvent } from 'spaghettify/core/events-listener';
+import { AnchorEvent } from '../events-listener';
 
 /**  */
 export type MiddlewarePayload = {

@@ -1,4 +1,4 @@
-import { MiddlewareHandler, MiddlewarePayload } from 'spaghettify/core/stream-writer'
+import { MiddlewareHandler, MiddlewarePayload } from '../../core/stream-writer'
 
 const persistedElementsMap = new Map<string, Node>();
 

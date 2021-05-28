@@ -1,4 +1,4 @@
-import { httpClient, LoadProgressHandler, MiddlewareHandler, MiddlewarePayload, PROGRESS_BAR_TRANSITION_MS } from 'spaghettify/core';
+import { httpClient, LoadProgressHandler, MiddlewareHandler, MiddlewarePayload, PROGRESS_BAR_TRANSITION_MS } from '../../core';
 
 /**
  * 

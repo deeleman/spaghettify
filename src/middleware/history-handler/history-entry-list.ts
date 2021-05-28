@@ -1,4 +1,4 @@
-import { MiddlewarePayload } from 'spaghettify/core';
+import { MiddlewarePayload } from '../../core';
 
 export type HistoryEntry = {
   payload: Partial<MiddlewarePayload>;

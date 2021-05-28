@@ -8,27 +8,51 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "concurrently \"parcel serve ./index.ts --dist-dir=./sandbox/bin\" \"yarn serve\"",
-    "build": "parcel build ./index.ts",
-    "serve": "lite-server --baseDir=\"sandbox\""
+    "dev": "concurrently \"yarn web:dev\" \"yarn serve\"",
+    "dev:watch": "yarn clean && webpack --mode development",
+    "serve": "lite-server --baseDir=\"sandbox\"",
+    "build": "yarn clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack  --mode production",
+    "build:types": "tsc --emitDeclarationOnly",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "promise-polyfill": "^8.2.0",
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-typescript": "^7.13.0",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.3.0",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
+    "babel-loader": "^8.2.2",
     "concurrently": "^6.2.0",
     "eslint": "^7.26.0",
+    "fork-ts-checker-webpack-plugin": "^6.2.10",
     "jest": "^26.6.3",
     "lite-server": "^2.6.1",
-    "parcel": "^2.0.0-beta.2",
-    "typescript": "^4.2.4"
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.4",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
   },
-  "alias": {
-    "spaghettify": "./src"
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "browsers": [
+              "last 2 Chrome versions"
+            ]
+          }
+        }
+      ],
+      "@babel/preset-typescript"
+    ],
+    "plugins": []
   }
 }

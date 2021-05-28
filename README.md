@@ -13,9 +13,9 @@ The entire project is built on top of TypeScript and implements several polyfill
 ## Setting up your environment
 The minimum requirements for running this project, either on development or production mode, and its development scripts are `node v12.16.0` and `npm v.6.14.15`, or later versions. Probably this project will run smoothly on older versions of `node` and `npm` but we recommend using the latest [LTS versions](https://nodejs.org/).
 
-This project relies on [Parcel](https://parceljs.org/) for compiling code in dev mode, running builds and handling code optimisations. Since Parcel also intercepts inline JavaScript (which might be subject to be digested by Spaghettify as well), the web server functionality leverages [Lite-Server](https://github.com/johnpapa/lite-server) instead.
+This project relies on [BabelJS](https://babeljs.io/) and [Webpack](https://https://webpack.js.org//) for compiling code in dev mode, running builds and handling code optimisations. The web server functionality leverages relies on [Lite-Server](https://github.com/johnpapa/lite-server).
 
-All interaction with `Parcel` and `Lite-Server` has been abstracted away in custom npm scripts for your convenience. 
+All interaction with `BabelJS`, `Webpack` and `Lite-Server` has been abstracted away in custom npm scripts for your convenience. 
 
 ### Installing dependencies
 As a first step to spawn a development environment or production build, please run either `yarn` or `npm install` to pull all the required dependencies for this project.
