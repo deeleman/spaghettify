@@ -8,7 +8,7 @@ yarn-error.log*
 # Build files
 build
 dist
-sandbox/bin
+sandbox/temp
 
 # Coverage directory used by tools like istanbul
 coverage
