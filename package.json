@@ -9,7 +9,7 @@
   "private": false,
   "scripts": {
     "dev": "yarn clean && yarn serve",
-    "serve": "webpack --mode development && webpack serve --mode development",
+    "serve": "webpack serve --mode development",
     "build": "yarn clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack --mode production",
     "clean": "rimraf dist sandbox/temp"
   },
