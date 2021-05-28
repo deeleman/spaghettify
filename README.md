@@ -126,9 +126,7 @@ However, consumers might want to implement their own visual solutions for render
 </script>
 ```
 
-### Tip: Persisting state across navigation (Alpha)
-
-**Please note this API is experimental and is still on an early stage, so it can be unstable and unreliable**.
+### Tip: Persisting state across navigation
 
 Spaghettify implements an experimental API for persisting state in selected, annotated DOM nodes across page navigation. In order to do so you just need to configure a value token in the `persistAttr` option and then annotate those DOM elements whose state you want to be persisted with the equivalent `data-` attribute with an unique value each:
 
@@ -147,8 +145,6 @@ You can explicitly prefix the value with `data-` or not, but Spaghettify will re
 **Please note**: Attribute values are meant to be unique. Spaghettify will throw an exception if more than one element of different type is configured with the same attribute value.
 
 It is worth highlighting that persistence will be applied on a full DOM `Node` basis, so it will encompass not only the element's inner HTML but also the native _touched_ state for input controls. And all this irrespective of the changes in the outer HTML.
-
-**Beware:** This feature is currently yielding bugs upon backwards navigation.
 
 ## Testing and linting your code contributions
 

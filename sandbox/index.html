@@ -29,20 +29,16 @@
         <li><a href="content/index.html">Child Content Index</a></li>
         <li><a href="content/page-e.html">Child Content Subpage</a></li>
       </ul>
-      <div>
-        Rate our site: 
-        <select data-persist="rating">
-          <option>*</option>
-          <option>**</option>
-          <option>***</option>
-          <option>****</option>
-          <option>*****</option>
-        </select>
+      <script>
+        function subscribe() {
+          document.getElementById('forms').innerHTML = '<p>You are subscribed to our newsletter!</p>'; 
+        }
+      </script>
+      <div id="forms" data-persist="forms">
         <label>
           <p>Subscribe to our newsletter</p>
-          <input type="text" value="" placeholder="Your email" data-persist="email">
+          <input type="text" value="" placeholder="Your email">
         </label>
-        <script>function subscribe() { document.getElementById('submit').value = 'Subscribed'; }</script>
         <input id="submit" data-persist="submit" type="submit" value="Send" onclick="subscribe()">
       </div>
     </aside>

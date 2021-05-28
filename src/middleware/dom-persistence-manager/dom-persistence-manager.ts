@@ -2,6 +2,12 @@ import { MiddlewareHandler, MiddlewarePayload } from '../../core/stream-writer'
 
 const persistedElementsMap = new Map<string, Node>();
 
+const observeElementChanges = (persistenceKey: string, element: Node): void => {
+  element.addEventListener('change', () => {
+    persistedElementsMap.set(persistenceKey, element!);
+  });
+}
+
 const persistElements = (targetElement: Element, persistAttr: string): void => {
   const elementsToPersist = targetElement.querySelectorAll(`*[${persistAttr}]`);
 
@@ -15,9 +21,15 @@ const persistElements = (targetElement: Element, persistAttr: string): void => {
         throw new Error(`There is more than one element with the "${persistAttr}" data attribute set to "${elementPersistenceKey}"".`);
       }
 
-      element.replaceWith(persistedElement!);
+      const clonedPersistedElement = persistedElement?.cloneNode(true);
+      observeElementChanges(elementPersistenceKey, persistedElement!);
+      persistedElementsMap.set(elementPersistenceKey, clonedPersistedElement!);
+      element.replaceWith(clonedPersistedElement!);
     } else {
-      persistedElementsMap.set(elementPersistenceKey, element);
+      const clonedPersistedElement = element?.cloneNode(true);
+      observeElementChanges(elementPersistenceKey, element!);
+      persistedElementsMap.set(elementPersistenceKey, clonedPersistedElement);
+      element.replaceWith(clonedPersistedElement!);
     }
   });
 };
