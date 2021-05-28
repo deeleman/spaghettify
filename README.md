@@ -24,7 +24,7 @@ As a first step to spawn a development environment or production build, please r
 ## Building the project for production
 Please execute `yarn build` or `npm run build` from your terminal window. 
 
-Parcel will navigate through the entire application tree and will build the JavaScript artifact into the `/dist` folder.
+Parcel will navigate through the entire application tree and will build the JavaScript artifact into the `/dist` folder, bundled as `spaghettify.js`. Other useful bundles will be saved there as well for your convenience.
 
 ## Firing up a development environment
 You can spawn a development environment by running `yarn dev` or `npm run dev` in the console.
@@ -51,7 +51,7 @@ You can instantiate and interact with Spaghettify through a convenient API cater
 Once you successfully compile Spaghettify, you can import and instantiate it into your application as follows:
 
 ```html
-<script type="text/javascript" src="/dist/index.js"></script>
+<script type="text/javascript" src="/dist/spaghettify.js"></script>
 <script type="text/javascript">
   new Spaghettify({
     enabled: true,
