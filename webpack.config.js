@@ -20,6 +20,11 @@ module.exports = (env, options) => ({
     hot: true,
     inline: false,
     port: 3000,
+    noInfo: true,
+    onListening: function (server) {
+      const port = server.listeningApp.address().port;
+      console.log('🍝 Spaghettify is now bootstrapped at', `\x1b[33mhttp://localhost:${port}\x1b[0m`);
+    },
   },
 
   module: {
