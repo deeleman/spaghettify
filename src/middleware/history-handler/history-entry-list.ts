@@ -4,7 +4,7 @@ export type HistoryEntry = {
   payload: Partial<MiddlewarePayload>;
   href: string;
   visitedOn: number; 
-  title?: string;
+  title: string;
   prev?: HistoryEntry;
   next?: HistoryEntry;
 };
