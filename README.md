@@ -70,9 +70,9 @@ Spaghettify interacts with your current document by internally binding event han
 ```html
 <script type="text/javascript">
   // First, we instantiate Spaghettify
-  Spaghettify.bootstrap();
+  const spa = Spaghettify.bootstrap();
   // Then we dispose it after use
-  Spaghettify.destroy();
+  spa.destroy();
 </script>
 ```
 
