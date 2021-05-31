@@ -1,6 +1,6 @@
 # Spaghettify
-![GitHub](https://img.shields.io/github/license/deeleman/spaghettify)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/deeleman/spaghettify?color=green)
+![GitHub](https://img.shields.io/github/license/deeleman/spaghettify?color=blue)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/deeleman/spaghettify)
 ![Travis (.com)](https://img.shields.io/travis/com/deeleman/spaghettify)
 [![Coverage Status](https://coveralls.io/repos/github/deeleman/spaghettify/badge.svg?branch=master)](https://coveralls.io/github/deeleman/spaghettify?branch=master)
 
