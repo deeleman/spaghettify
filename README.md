@@ -1,6 +1,8 @@
 # Spaghettify
-![GitHub](https://img.shields.io/github/license/deeleman/spaghettify?color=blue)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/deeleman/spaghettify)
+![GitHub](https://img.shields.io/github/license/deeleman/spaghettify)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/deeleman/spaghettify?color=green)
+![Travis (.com)](https://img.shields.io/travis/com/deeleman/spaghettify)
+[![Coverage Status](https://coveralls.io/repos/github/deeleman/spaghettify/badge.svg?branch=master)](https://coveralls.io/github/deeleman/spaghettify?branch=master)
 
 Spaghettify implements a DOM interceptor and a _middleware-funneling processor_ that turns any static web site into a XHR driven Single Page Application. 
 

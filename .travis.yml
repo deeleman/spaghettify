@@ -11,5 +11,5 @@ before_script:
 
 script:
   - yarn lint
-  - yarn test
+  - yarn test:ci
   - yarn build
