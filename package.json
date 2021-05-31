@@ -10,8 +10,7 @@
   "scripts": {
     "dev": "yarn clean && yarn serve",
     "serve": "webpack serve --mode development",
-    "build": "yarn lint & yarn clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack --mode production",
-    "build:ci": "yarn lint && yarn test & yarn clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack --mode production",
+    "build": "yarn clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack --mode production",
     "clean": "rimraf dist sandbox/temp coverage",
     "test": "jest --silent=false --passWithNoTests --coverage=true",
     "lint": "eslint"
