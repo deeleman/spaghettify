@@ -4,9 +4,9 @@
 ![Travis (.com)](https://img.shields.io/travis/com/deeleman/spaghettify)
 [![Coverage Status](https://coveralls.io/repos/github/deeleman/spaghettify/badge.svg?branch=master)](https://coveralls.io/github/deeleman/spaghettify?branch=master)
 
-Spaghettify implements a DOM interceptor and a _middleware-funneling processor_ that turns any static web site into a XHR driven Single Page Application. 
+Spaghettify implements a DOM interceptor and a _middleware-funneling processor_ that turns any static web site into a XHR-driven Single Page Application (SPA). 
 
-The business logic is pretty straightforward: A `Spaghettify` instance object will intercept all your website links and every time the end user clicks on an eligible link, Spaghettify will spin up a functional reactive stream that will process the request payload, composing a final fully fleshed out DOM snapshot, featuring all necessary transformations. In order to achieve this goal the `Spaghettify` underlying mechanism streams the payload through an extendable row of pluggable I/O middleware functions, each one observing the [Single Responsibility Principle](http://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) and digesting the input stream before passing it over to the next stage in the pipeline.
+The business logic is pretty straightforward: A `Spaghettify` instance object will intercept all your website links and every time an eligible link is clicked, Spaghettify will spin up a functional reactive stream which will process the request payload, composing a final fully fleshed out DOM snapshot featuring all necessary transformations. In order to achieve this the `Spaghettify` underlying mechanism streams the payload through an extendable row of pluggable I/O middleware functions, each one observing the [Single Responsibility Principle](http://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) and digesting the input stream before passing it over to the next stage in the pipeline.
 
 These middleware handlers can be categorized into `onBeforeComplete` middleware hooks, which DO NOT mutate the current page DOM, and `onAfterComplete` middleware hooks that do apply their changes (hence mutate) directly on the current page DOM.
 
