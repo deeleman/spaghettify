@@ -1,6 +1,6 @@
 {
   "name": "spaghettify",
-  "version": "v1.0.0-rc3",
+  "version": "1.0.0",
   "description": "JavaScript module that replaces regular navigation by an AJAX-driven experience.",
   "main": "dist/index.js",
   "repository": "https://github.com/deeleman/spaghettify",
