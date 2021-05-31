@@ -10,8 +10,10 @@
   "scripts": {
     "dev": "yarn clean && yarn serve",
     "serve": "webpack serve --mode development",
-    "build": "yarn clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack --mode production",
-    "clean": "rimraf dist sandbox/temp"
+    "build": "yarn lint & yarn clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack --mode production",
+    "clean": "rimraf dist sandbox/temp coverage",
+    "test": "jest --silent --passWithNoTests --coverage=true",
+    "lint": "eslint"
   },
   "dependencies": {
     "promise-polyfill": "^8.2.0",
@@ -26,6 +28,7 @@
     "@types/node": "^15.3.0",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
+    "babel-jest": "^27.0.2",
     "babel-loader": "^8.2.2",
     "eslint": "^7.26.0",
     "fork-ts-checker-webpack-plugin": "^6.2.10",
@@ -51,5 +54,16 @@
       "@babel/preset-typescript"
     ],
     "plugins": []
+  },
+  "jest": {
+    "transform": {
+      "\\.[jt]sx?$": "babel-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
   }
 }

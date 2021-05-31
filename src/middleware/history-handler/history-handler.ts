@@ -18,18 +18,14 @@ export const historyHandler = (window: Window): MiddlewareHandler => {
   });
 
   return (payload: MiddlewarePayload): MiddlewarePayload => {
-    const title = payload.rawData?.title || '';
-    const href = payload.anchor.href;
-    const visitedOn = Date.now();
-
     historyEntries.replaceHead({
       payload,
-      href,
-      title,
-      visitedOn,
+      href: payload.anchor.href,
+      title: payload.rawData?.title || '',
+      visitedOn: Date.now(),
     });
-
-    window.history.pushState({ visitedOn }, title, href);
+    
+    window.history.pushState({ visitedOn }, historyEntries.head.title!, href);
 
     return payload;
   };

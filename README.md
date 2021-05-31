@@ -24,25 +24,9 @@ As a first step to spawn a development environment or production build, please r
 ## Building the project for production
 Please execute `yarn build` or `npm run build` from your terminal window. 
 
-Parcel will navigate through the entire application tree and will build the JavaScript artifact into the `/dist` folder, bundled as `spaghettify.js`. Other useful bundles will be saved there as well for your convenience.
+The project bundler will navigate through the entire application tree and will build the JavaScript artifact into the `/dist` folder, bundled as `spaghettify.js`. Other useful bundles will be saved there as well for your convenience.
 
-## Firing up a development environment
-You can spawn a development environment by running `yarn dev` or `npm run dev` in the console.
-
-The system will generate all the artifacts and serve the sandbox site (more details below) from http://localhost:3000 (or any other port if 3000 is unavailable - please kindly check the terminal output for further details) in _watch mode_, so the application will be recompiled upon changes in the source code.
-
-### The sandbox site
-The sandbox site is a small, uber-simplistic web application that serves as a playground and testing arena for debugging Spaghettify in a live environment. It features a pretty simplistic styling, through a set of different, hierarchical pages depicting the following key features:
-
-- The main `index.html` contains an instance of Spaghettify inline for demo purposes. All the other documents implement such instance as an imported script. This allows to fire up Spaghettify from any document for demo purposes. In a real production scenario, Spaghettify can (and should) be imported and instantiated only once in the entry location.
-- Links to Page B are configured to bypass Spaghettify and force a full page load.
-- Content is scattered in between the `/sandbox` root level and a child `/sandbox/content` subfolder so contributors can play around with link selectors pointing to subfolders, if necessary.
-- The main body contains dummy text with slight variations to ensure the page transition is noticeable.
-- The side menu contains diverse input controls to validate state persistence accross navigated pages.
-- Page A and pages within `/sandbox/content` feature either inline or imported custom JavaScript that Spaghettify will kindly digest.
-- Spaghettify supports forward and backwards history navigation. Browse around and give it a shot!
-
-
+> **Can I fetch Spaghettify from the npm registry?** At the moment of this writing I am focused on providing full test coverage to the project. Once that goal is accomplished, Spaghettify will also become a distributable package from the NPM registry. Please check back shortly for updates.
 
 ## The Spaghettify API
 
@@ -76,7 +60,7 @@ The Spaghettify configuration settings object can be summarised as follows:
 |`routes`|`String[]`|`['*']`|Defines patterns for routes to be intercepted and served through Spaghettify. Supports glob tokens.|
 |`excludeByAttr`|`String`|`undefined`|Defines an exclusion data attribute token (with or without the `data-` prefix). Links decorated with this attribute will be bypassed by Spaghettify|
 |`loadProgress`|`Boolean` `Function`|`false`|Enables a built-in progress bar or not. It can also take a function handler that will receive a percentage progress integer upon load. |
-|`persistAttr`|`String`|`undefined`|**Still in alpha state.** Defines an UI state persistence flag data attribute (with or without the `data-` prefix). Elements decorated with this attribute will persist their state across page navigation.  |
+|`persistAttr`|`String`|`undefined`|Defines an UI state persistence flag data attribute (with or without the `data-` prefix). Elements decorated with this attribute will persist their state across page navigation.  |
 
 Please note that all configuration options are optional and will take the default value if not explicitly declared.
 
@@ -146,9 +130,31 @@ You can explicitly prefix the value with `data-` or not, but Spaghettify will re
 
 It is worth highlighting that persistence will be applied on a full DOM `Node` basis, so it will encompass not only the element's inner HTML but also the native _touched_ state for input controls. And all this irrespective of the changes in the outer HTML.
 
-## Testing and linting your code contributions
 
-At the time of this writing, test coverage has not been implemented and linting is currently disabled. Please check back for updates shortly.
+## Running Spaghettify in development mode
+You can spawn a development environment by running `yarn dev` or `npm run dev` in the console.
+
+The system will generate all the artifacts and serve the sandbox site (more details below) from http://localhost:3000 (or any other port if 3000 is unavailable - please kindly check the terminal output for further details) in _watch mode_, so the application will be recompiled upon changes in the source code.
+
+### The sandbox site
+The sandbox site is a small, uber-simplistic web application that serves as a playground and testing arena for debugging Spaghettify in a live environment. It features a pretty simplistic styling, through a set of different, hierarchical pages depicting the following key features:
+
+- The main `index.html` contains an instance of Spaghettify inline for demo purposes. All the other documents implement such instance as an imported script. This allows to fire up Spaghettify from any document for demo purposes. In a real production scenario, Spaghettify can (and should) be imported and instantiated only once in the entry location.
+- Links to Page B are configured to bypass Spaghettify and force a full page load.
+- Content is scattered in between the `/sandbox` root level and a child `/sandbox/content` subfolder so contributors can play around with link selectors pointing to subfolders, if necessary.
+- The main body contains dummy text with slight variations to ensure the page transition is noticeable.
+- The side menu contains diverse input controls to validate state persistence accross navigated pages.
+- Page A and pages within `/sandbox/content` feature either inline or imported custom JavaScript that Spaghettify will kindly digest.
+- Spaghettify supports forward and backwards history navigation. Browse around and give it a shot!
+### Linting your code contributions
+
+ESLint is currently enabled in the Spaghettify codebase and a linting audit will be triggered upon building the project. You can configure your IDE to automatically provide linting assessment as you introduce changes. Moreover, you can trigger manually by running `npm run lint` or `yarn lint` in your terminal console.
+
+### Testing your code contributions
+
+At the time of this writing, test are still in the works and no test coverage is available. However you can introduce tests in the codebase and execute them by running `npm test` or `yarn test` in your terminal console. Code coverage data is collected and stored in a conveniently formatted document at `/coverage/lcov-report`.
+
+Please check back for updates shortly.
 
 ## Distributed under the MIT License
 

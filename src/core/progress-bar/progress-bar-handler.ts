@@ -1,6 +1,7 @@
 import { LoadProgressHandler } from './progress-bar.types';
 
 export const PROGRESS_BAR_TRANSITION_MS = 200;
+const MILLISECONDS = 1000;
 
 const generateProgressBar = (document: Document): HTMLDivElement => {
   const divElement = document.createElement('div');
@@ -11,7 +12,7 @@ const generateProgressBar = (document: Document): HTMLDivElement => {
   divElement.style.width = '0%';
   divElement.style.height = '3px';
   divElement.style.transitionProperty = 'width';
-  divElement.style.transitionDuration = `${PROGRESS_BAR_TRANSITION_MS/1000}s`;
+  divElement.style.transitionDuration = `${PROGRESS_BAR_TRANSITION_MS/MILLISECONDS}s`;
   divElement.style.backgroundColor = '#c90000';
 
   document.body.appendChild(divElement);
@@ -19,11 +20,15 @@ const generateProgressBar = (document: Document): HTMLDivElement => {
   return divElement;
 }
 
-export const progressBarHandler = (document: Document, loadProgress?: LoadProgressHandler | boolean): LoadProgressHandler | undefined => {
-  if (loadProgress === void 0 || loadProgress === false) {
+export const progressBarHandler = (
+  document: Document,
+  loadProgressHandler?: LoadProgressHandler | boolean
+  ): LoadProgressHandler | undefined => {
+  if (loadProgressHandler === void 0 || loadProgressHandler === false) {
     return;
   }
 
+  const LOAD_COMPLETE_PERCENTAGE = 100;
   let progressBarElement: HTMLDivElement;
 
   const builtinLoadProgressHandler = (loadProgress: number): void => {
@@ -33,10 +38,10 @@ export const progressBarHandler = (document: Document, loadProgress?: LoadProgre
 
     progressBarElement.style.width = `${loadProgress}%`;
 
-    if (loadProgress === 100) {
+    if (loadProgress === LOAD_COMPLETE_PERCENTAGE) {
       setTimeout(() => { progressBarElement.remove(); }, PROGRESS_BAR_TRANSITION_MS - 1);
     }
   };
 
-  return typeof loadProgress === 'boolean' ? builtinLoadProgressHandler : loadProgress;
+  return typeof loadProgressHandler === 'boolean' ? builtinLoadProgressHandler : loadProgressHandler;
 }

@@ -20,20 +20,21 @@ export const httpClient = async <T extends any>(url: string, options?: HttpClien
   const binaryBodyChunks = [];
   const contentLength = +(response.headers.get('Content-Length') || 0); // Total length
   let receivedContentLength = 0;
+  let isDownloadInProgress = true;
 
   // Runs a tick-based loop to iteratively read stream progress
-  while (true) {
+  while (isDownloadInProgress) {
     const { done, value } = await streamReader.read();
-  
-    if (done) {
-      break;
-    }
-  
-    binaryBodyChunks.push(value);
-    receivedContentLength += value !== void 0 ? value.length : 0;
 
-    if (options?.onLoadProgress !== void 0) {
-      options.onLoadProgress(Math.floor((receivedContentLength / contentLength) * 100));
+    isDownloadInProgress = !done;
+  
+    if (isDownloadInProgress) {
+      binaryBodyChunks.push(value);
+      receivedContentLength += value !== void 0 ? value.length : 0;
+  
+      if (options?.onLoadProgress !== void 0) {
+        options.onLoadProgress(Math.floor((receivedContentLength / contentLength) * 100));
+      }
     }
   }
   
@@ -41,13 +42,13 @@ export const httpClient = async <T extends any>(url: string, options?: HttpClien
   const uint8Array = new Uint8Array(receivedContentLength);
   let position = 0;
 
-  for (let binaryBodyChunk of binaryBodyChunks) {
+  for (const binaryBodyChunk of binaryBodyChunks) {
     uint8Array.set(binaryBodyChunk as Uint8Array, position); // (4.2)
     position += binaryBodyChunk ? binaryBodyChunk.length : 0;
   }
 
   // Decode recompiled binary array into plain string and return results
-  const responseText = new TextDecoder("utf-8").decode(uint8Array);
+  const responseText = new TextDecoder('utf-8').decode(uint8Array);
 
   if (options?.serializer !== void 0) {
     return options.serializer(responseText) as T;

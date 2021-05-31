@@ -18,7 +18,7 @@ const persistElements = (targetElement: Element, persistAttr: string): void => {
       const persistedElement = persistedElementsMap.get(elementPersistenceKey);
 
       if (persistedElement !== void 0 && persistedElement.nodeType !== element.nodeType) {
-        throw new Error(`There is more than one element with the "${persistAttr}" data attribute set to "${elementPersistenceKey}"".`);
+        throw new Error(`There is more than 1 element with a "${persistAttr}" data attribute set to "${elementPersistenceKey}"".`);
       }
 
       const clonedPersistedElement = persistedElement?.cloneNode(true);
@@ -34,7 +34,7 @@ const persistElements = (targetElement: Element, persistAttr: string): void => {
   });
 };
 
-export const DOMPersistenceManager = (body: Element, persistAttribute: string = 'no-persist'): MiddlewareHandler => {
+export const DOMPersistenceManager = (body: Element, persistAttribute = 'no-persist'): MiddlewareHandler => {
   const sanitizedPersistAttr = persistAttribute?.startsWith('data-') ? persistAttribute : `data-${persistAttribute}`;
 
   persistElements(body, sanitizedPersistAttr);

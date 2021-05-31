@@ -26,7 +26,7 @@ export class StreamWriter {
    * @param payload 
    */
   async pipe(payload: MiddlewarePayload): Promise<void> {
-    let streamPayload = await this.processMiddleware(payload, this.streamWriterHooks.onBeforeComplete);
+    const streamPayload = await this.processMiddleware(payload, this.streamWriterHooks.onBeforeComplete);
 
     if (streamPayload !== void 0) {
       this.streamCompleteCallbacks.forEach((streamCompleteCallback) => streamCompleteCallback(streamPayload!));

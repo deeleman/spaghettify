@@ -1,4 +1,8 @@
 {
+  "ignorePatterns": [
+      "webpack.config.js",
+      "sandbox/**/*.*"
+  ],
   "env": {
       "browser": true,
       "es2020": true
@@ -13,8 +17,7 @@
       "sourceType": "module"
   },
   "plugins": [
-      "@typescript-eslint",
-      "html"
+      "@typescript-eslint"
   ],
   "rules": {
       "prefer-arrow-callback": "error",
