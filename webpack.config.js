@@ -14,6 +14,9 @@ module.exports = (env, options) => ({
   },
 
   resolve: {
+    alias: {
+      spaghettify: path.resolve(__dirname, './src/'),
+    },
     extensions: ['.ts', '.tsx', '.js', '.json']
   },
 

@@ -11,8 +11,9 @@
     "dev": "yarn clean && yarn serve",
     "serve": "webpack serve --mode development",
     "build": "yarn lint & yarn clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack --mode production",
+    "build:ci": "yarn lint && yarn test & yarn clean && tsc && tsc -m es6 --outDir dist/lib-esm && webpack --mode production",
     "clean": "rimraf dist sandbox/temp coverage",
-    "test": "jest --silent --passWithNoTests --coverage=true",
+    "test": "jest --silent=false --passWithNoTests --coverage=true",
     "lint": "eslint"
   },
   "dependencies": {
@@ -64,6 +65,13 @@
       "ts",
       "tsx",
       "js"
+    ],
+    "moduleNameMapper": {
+      "^spaghettify/core/(.*)$": "<rootDir>/src/core/$1"
+    },
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/src/core/testing",
+      "<rootDir>/sandbox"
     ]
   }
 }
