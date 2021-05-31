@@ -166,7 +166,7 @@ ESLint is currently enabled in the Spaghettify codebase and a linting audit will
 
 ### Testing your code contributions
 
-At the time of this writing, test are still in the works and no test coverage is available. However you can introduce tests in the codebase and execute them by running `npm test` or `yarn test` in your terminal console. Code coverage data is collected and stored in a conveniently formatted document at `/coverage/lcov-report`.
+At the time of this writing, test are still in the works and only a little test coverage is available. However you can introduce tests in the codebase and execute them by running `npm test` or `yarn test` in your terminal console. Code coverage data is collected and stored in a conveniently formatted document at `/coverage/lcov-report`.
 
 Please check back for updates shortly.
 
