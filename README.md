@@ -32,12 +32,12 @@ The project bundler will navigate through the entire application tree and will b
 
 You can instantiate and interact with Spaghettify through a convenient API catering with global toggles, route interceptors, exclusions and state persistence attribute flags and, last but not least, loading progress indicators and handlers.
 
-Once you successfully compile Spaghettify, you can import and instantiate it into your application as follows:
+Once you successfully compile Spaghettify, you can import and instantiate it into your application via its static `Spaghettify.bootstrap(options)` method as follows:
 
 ```html
 <script type="text/javascript" src="/dist/spaghettify.js"></script>
 <script type="text/javascript">
-  new Spaghettify({
+  Spaghettify.bootstrap({
     enabled: true,
     routes: ['*.html', 'content/*'],
     excludeByAttr: 'no-spa',
@@ -47,7 +47,7 @@ Once you successfully compile Spaghettify, you can import and instantiate it int
 </script>
 ```
 
-As you can see Spaghettify will expect a configuration object upon instantiation. Please note that **all fields are optional**. 
+As you can see Spaghettify can take a configuration object upon instantiation. Please note that **all fields are optional** and even the whole configuration object itself is also optional. If not provided, Spgahettify wil lbe instantiated with the default options as described in the table below. 
 
 ### The Spaghettify settings API
 
@@ -62,10 +62,22 @@ The Spaghettify configuration settings object can be summarised as follows:
 |`loadProgress`|`Boolean` `Function`|`false`|Enables a built-in progress bar or not. It can also take a function handler that will receive a percentage progress integer upon load. |
 |`persistAttr`|`String`|`undefined`|Defines an UI state persistence flag data attribute (with or without the `data-` prefix). Elements decorated with this attribute will persist their state across page navigation.  |
 
-Please note that all configuration options are optional and will take the default value if not explicitly declared.
+Please note that all configuration options (and the options payload itself) are optional and will take the default value if not explicitly declared.
+
+### Disposing Spaghettify after use
+Spaghettify interacts with your current document by internally binding event handlers to eligible links. In order to prevent memory leaks or if you want to stop Spaghettify until it is reinstated again you will want to destroy it as follows:
+
+```html
+<script type="text/javascript">
+  // First, we instantiate Spaghettify
+  Spaghettify.bootstrap();
+  // Then we dispose it after use
+  Spaghettify.destroy();
+</script>
+```
 
 ### Tip: Excluding links from being intercepted by Spaghettify
-All links are configured by Spaghettify as subject to be intercepted. Then the internal events manager machinery will assess whether the link is eligible to be treated as an AJAX request or not by testing the link href value against the `routes` glob tokens.
+All links are configured by Spaghettify as subject to be intercepted. The internal events manager machinery will assess whether the link is eligible to be treated as an AJAX request or not by testing the link href value against the `routes` glob tokens.
 
 However, we can bypass this step upfront by configuring the `excludeByAttr` option with an attribute value, either with the `data-` prefix or not. 
 
@@ -73,7 +85,7 @@ Nonetheless, and for the sake of semantics, Spaghettify will then only consider 
 
 ```html
 <script type="text/javascript">
-  new Spaghettify({
+  Spaghettify.bootstrap({
     excludeByAttr: 'skip-me',
   });
 </script>
@@ -90,7 +102,7 @@ As we already learned above, the `loadProgress` configuration option can take a 
 
 ```html
 <script type="text/javascript">
-  new Spaghettify({
+  Spaghettify.bootstrap({
     loadProgress: true,
   });
 </script>
@@ -102,7 +114,7 @@ However, consumers might want to implement their own visual solutions for render
 
 ```html
 <script type="text/javascript">
-  new Spaghettify({
+  Spaghettify.bootstrap({
     loadProgress: function onLoad(progress) {
       console.log(progress); // Will log values from 0 to 100
     },
@@ -116,7 +128,7 @@ Spaghettify implements an experimental API for persisting state in selected, ann
 
 ```html
 <script type="text/javascript">
-  new Spaghettify({
+  Spaghettify.bootstrap({
     persistAttr: 'persist-id',
   });
 </script>

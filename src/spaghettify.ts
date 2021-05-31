@@ -3,10 +3,19 @@ import './core/polyfills';
 import { DOMPersistenceManager, DOMScriptsParser, historyHandler, linkInterceptor, webScraper } from './middleware';
 import { SpaghettifyConfig } from './spaghettify.types';
 
+const defaultOptions: SpaghettifyConfig = {
+  routes: ['*'],
+  enabled: true,
+  excludeByAttr: void 0,
+  persistAttr: void 0,
+  loadProgress: false,
+};
+
 /**
- * 
+ * Spaghettify class, whose instances allow to handle current page navigation as a SPA.
  */
 export class Spaghettify {
+  private readonly options: SpaghettifyConfig;
   private eventsListener?: EventsListener;
 
   private get anchorSelector(): string {
@@ -16,7 +25,12 @@ export class Spaghettify {
     return this.options.excludeByAttr ? `a:not([${sanitizedExclusionAttr}])` : 'a';
   }
 
-  constructor(private readonly options: SpaghettifyConfig) {
+  constructor(options?: SpaghettifyConfig) {
+    this.options = {
+      ...defaultOptions,
+      ...options,
+    };
+
     if (this.options.enabled === void 0 || this.options.enabled === true) {
       document.addEventListener('DOMContentLoaded', () => {
         this.eventsListener = new EventsListener({
@@ -31,6 +45,17 @@ export class Spaghettify {
     }
   }
 
+  /**
+   * Orchestrates a new instance of Spaghettify.
+   * @param options Spaghettify options.
+   */
+  static bootstrap(options?: SpaghettifyConfig): Spaghettify {
+    return new Spaghettify(options);
+  }
+
+  /**
+   * Teardown Spgahettify click listener watchers, so website will rollback to its previous static state.
+   */
   destroy(): void {
     this.eventsListener?.detachListeners();
   }
