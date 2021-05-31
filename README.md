@@ -1,8 +1,8 @@
 # Spaghettify
-[![GitHub license](https://img.shields.io/github/license/deeleman/spaghettify.svg)](https://github.com/deeleman/spaghettify/blob/master/LICENSE)
-[![GitHub version](https://badge.fury.io/gh/deeleman%2Fspaghettify.svg)](https://github.com/deeleman/spaghettify)
+![GitHub](https://img.shields.io/github/license/deeleman/spaghettify?color=blue)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/deeleman/spaghettify)
 
-Spaghettify is a personal project aimed to implement a DOM interceptor and _middleware-funneling processor_ that turns any static web site into a XHR driven Single Page Application. 
+Spaghettify implements a DOM interceptor and a _middleware-funneling processor_ that turns any static web site into a XHR driven Single Page Application. 
 
 The business logic is pretty straightforward: A `Spaghettify` instance object will intercept all your website links and every time the end user clicks on an eligible link, Spaghettify will spin up a functional reactive stream that will process the request payload, composing a final fully fleshed out DOM snapshot, featuring all necessary transformations. In order to achieve this goal the `Spaghettify` underlying mechanism streams the payload through an extendable row of pluggable I/O middleware functions, each one observing the [Single Responsibility Principle](http://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) and digesting the input stream before passing it over to the next stage in the pipeline.
 
