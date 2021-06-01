@@ -20,6 +20,13 @@ const generateProgressBar = (document: Document): HTMLDivElement => {
   return divElement;
 }
 
+/**
+ * Core function handler that wraps serves as a factory function to return download progress handlers.
+ * @param document DOM element where the progress bar DOM node will be appended.
+ * @param loadProgressHandler Can be either a boolean value which will enable the
+ * built-in progress handler or a custom progress handler that will override the native one.
+ * @returns Either the native load handler, the user-defined one or undefined if no load handler settings are supplied.
+ */
 export const progressBarHandler = (
   document: Document,
   loadProgressHandler?: LoadProgressHandler | boolean
