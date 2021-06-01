@@ -30,7 +30,7 @@ export const getRawDataStub = (): Document => {
 
 export const getPayloadStub = (): HTMLElement => getRawDataStub().body;
 
-export const getMiddlewarePayloadStub = (href: string): MiddlewarePayload => {
+export const getMiddlewarePayloadStub = (href = 'page-a.html'): MiddlewarePayload => {
   const anchor = getAnchorStub(href);
   const event = getAnchorEventStub();
   const rawData = getRawDataStub();

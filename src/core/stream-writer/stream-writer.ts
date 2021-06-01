@@ -7,23 +7,28 @@ type StreamWriterHooks = {
   onAfterComplete: MiddlewareHandler[];
 }
 
-/** */
+/**
+ * Core class that handles the reactive stream where each middleware function receives
+ * the payload stream and passes it across to the next middleware function.
+ */
 export class StreamWriter {
   private streamCompleteCallbacks: StreamCompleteCallback[] = [];
 
   constructor(private readonly streamWriterHooks: StreamWriterHooks) { }
 
   /**
-   * 
-   * @param streamCompleteCallback 
+   * Takes callback functions that will be executed upon completion of all 
+   * `onBeforeComplete` middleware hooks.
+   * @param streamCompleteCallback A callback expecting a `MiddlewarePayload` in this paylaod, corresponding
+   * to the current state of the digested middleware object after running all `onBeforeComplete` hooks.
    */
   onComplete(streamCompleteCallback: StreamCompleteCallback): void {
     this.streamCompleteCallbacks.push(streamCompleteCallback);
   }
 
   /**
-   * 
-   * @param payload 
+   * Starts a new stream from a listened event.
+   * @param payload `MiddlewarePayload` instance object that will be sequentally digested by all middleware hooks.
    */
   async pipe(payload: MiddlewarePayload): Promise<void> {
     const streamPayload = await this.processMiddleware(payload, this.streamWriterHooks.onBeforeComplete);
