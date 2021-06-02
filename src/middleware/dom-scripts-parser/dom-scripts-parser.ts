@@ -1,6 +1,10 @@
-import { MiddlewareHandler, MiddlewarePayload } from '../../core/stream-writer'
+import { MiddlewareHandler, MiddlewarePayload } from 'spaghettify/core'
 
-/** */
+/**
+ * Parses the `MiddlewarePayload` payload for detecting inline scripts and 
+ * reappends them into the returned document to ensure JavaSccript execution.
+ * @returns A `MiddlewarePayload` object whose `data`  proeprty now features new SCRIPT DOM elements.
+ */
 export const DOMScriptsParser = (): MiddlewareHandler => {
   const parseScriptNodes = (element: HTMLElement): NodeListOf<HTMLScriptElement> => {
     return element.querySelectorAll('script');
