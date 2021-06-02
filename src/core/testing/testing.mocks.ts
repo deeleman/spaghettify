@@ -20,7 +20,9 @@ export const rawDataMock = `<!DOCTYPE html>
       <script type="text/javascript" src="foo.js"></script>
       <h1>Spaghettify Sandbox - Page mock</h1>
       <script>function ping() { return 'pong'; }</script>
-      <p>Lorem ipsum dolor sit amet, consectetur <a href="page-a.html">adipiscing elit</a>.</p>
+      <p class="test-element" data-persist="lorem">
+        Lorem ipsum dolor sit amet, consectetur <a href="page-a.html">adipiscing elit</a>.
+      </p>
     </body>
   </html>`;
 

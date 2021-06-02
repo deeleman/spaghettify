@@ -1,6 +1,7 @@
 import { MiddlewareHandler, MiddlewarePayload } from '../../core/stream-writer'
 
 const persistedElementsMap = new Map<string, Node>();
+const PERSIST_ATTR_PREFIX = 'data-';
 
 const observeElementChanges = (persistenceKey: string, element: Node): void => {
   element.addEventListener('change', () => {
@@ -9,6 +10,10 @@ const observeElementChanges = (persistenceKey: string, element: Node): void => {
 }
 
 const persistElements = (targetElement: Element, persistAttr: string): void => {
+  if (persistAttr === PERSIST_ATTR_PREFIX) {
+    return;
+  }
+
   const elementsToPersist = targetElement.querySelectorAll(`*[${persistAttr}]`);
 
   elementsToPersist.forEach((element) => {
@@ -17,7 +22,7 @@ const persistElements = (targetElement: Element, persistAttr: string): void => {
     if (persistedElementsMap.has(elementPersistenceKey)) {
       const persistedElement = persistedElementsMap.get(elementPersistenceKey);
 
-      if (persistedElement !== void 0 && persistedElement.nodeType !== element.nodeType) {
+      if (persistedElement !== void 0 && persistedElement.nodeName !== element.nodeName) {
         throw new Error(`There is more than 1 element with a "${persistAttr}" data attribute set to "${elementPersistenceKey}"".`);
       }
 
@@ -34,8 +39,10 @@ const persistElements = (targetElement: Element, persistAttr: string): void => {
   });
 };
 
-export const DOMPersistenceManager = (body: Element, persistAttribute = 'no-persist'): MiddlewareHandler => {
-  const sanitizedPersistAttr = persistAttribute?.startsWith('data-') ? persistAttribute : `data-${persistAttribute}`;
+export const DOMPersistenceManager = (body: Element, persistAttribute?: string): MiddlewareHandler => {
+  const sanitizedPersistAttr = persistAttribute?.startsWith(PERSIST_ATTR_PREFIX) ?
+    persistAttribute :
+    `${PERSIST_ATTR_PREFIX}${persistAttribute}`;
 
   persistElements(body, sanitizedPersistAttr);
 
