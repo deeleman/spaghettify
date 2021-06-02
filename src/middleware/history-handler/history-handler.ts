@@ -1,4 +1,4 @@
-import { MiddlewareHandler, MiddlewarePayload } from '../../core/stream-writer'
+import { MiddlewareHandler, MiddlewarePayload } from 'spaghettify/core'
 import { HistoryEntryList } from './history-entry-list';
 
 /**

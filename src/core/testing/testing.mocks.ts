@@ -17,10 +17,10 @@ export const rawDataMock = `<!DOCTYPE html>
       <title>Spaghettify Mock Document</title>
     </head>
     <body>
-      <h1>Spaghettify Sandbox - Page mock</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur <a href="page-a.html">adipiscing elit</a>.</p>
-      <script>function ping() { return 'pong'; }</script>
       <script type="text/javascript" src="foo.js"></script>
+      <h1>Spaghettify Sandbox - Page mock</h1>
+      <script>function ping() { return 'pong'; }</script>
+      <p>Lorem ipsum dolor sit amet, consectetur <a href="page-a.html">adipiscing elit</a>.</p>
     </body>
   </html>`;
 
@@ -31,10 +31,10 @@ export const getRawDataStub = (rawData = rawDataMock): Document => {
 
 export const getPayloadStub = (): HTMLElement => getRawDataStub().body;
 
-export const getMiddlewarePayloadStub = (href = 'page-a.html'): MiddlewarePayload => {
+export const getMiddlewarePayloadStub = (href = 'page-a.html', rawDataDocument?: string): MiddlewarePayload => {
   const anchor = getAnchorStub(href);
   const event = getAnchorEventStub();
-  const rawData = getRawDataStub();
+  const rawData = getRawDataStub(rawDataDocument);
   const data = rawData.body;
 
   return { anchor, event, rawData, data };

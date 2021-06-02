@@ -1,9 +1,9 @@
-// import { getRawDataStub } from 'spaghettify/core/testing';
 import {
   PROGRESS_BAR_TRANSITION_MS,
   getRawDataStub,
   rawDataMock,
-} from '../../../../core';
+  getMiddlewarePayloadStub,
+} from '../../../core';
 
 const httpClient = () => Promise.resolve(getRawDataStub());
 
@@ -12,6 +12,7 @@ const core = {
   httpClient,
   getRawDataStub,
   rawDataMock,
+  getMiddlewarePayloadStub,
 };
 
 module.exports = core;
