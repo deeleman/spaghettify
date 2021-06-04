@@ -1,5 +1,12 @@
-type HttpClientOptions = {
-  serializer?: (responseText: string) => unknown;
+/** Additional options for httpClient payload */
+type HttpClientOptions<T> = {
+  /**
+   * Optional serializer function, which will receive the response as a text string ready to be serialized and returned as T
+   */
+  serializer?: (responseText: string) => T;
+  /**
+   * Optional on load progress callback, which will receibe the current progress percentage as an integer rangin from n to 100
+   */
   onLoadProgress?: (loadProgress: number) => void;
 };
 
@@ -11,7 +18,7 @@ type HttpClientOptions = {
  * @param options 
  * @returns Typed promise with response output, featuring error handling functionality
  */
-export const httpClient = async <T extends any>(url: string, options?: HttpClientOptions): Promise<T> => {
+export const httpClient = async <T>(url: string, options?: HttpClientOptions<T>): Promise<T> => {
   // Initialize request
   const response = await fetch(url);
 
@@ -33,6 +40,7 @@ export const httpClient = async <T extends any>(url: string, options?: HttpClien
       receivedContentLength += value !== void 0 ? value.length : 0;
   
       if (options?.onLoadProgress !== void 0) {
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         options.onLoadProgress(Math.floor((receivedContentLength / contentLength) * 100));
       }
     }
@@ -43,7 +51,7 @@ export const httpClient = async <T extends any>(url: string, options?: HttpClien
   let position = 0;
 
   for (const binaryBodyChunk of binaryBodyChunks) {
-    uint8Array.set(binaryBodyChunk as Uint8Array, position); // (4.2)
+    uint8Array.set(binaryBodyChunk as Uint8Array, position);
     position += binaryBodyChunk ? binaryBodyChunk.length : 0;
   }
 
