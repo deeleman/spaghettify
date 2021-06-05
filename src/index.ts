@@ -1,3 +1,4 @@
+import './core/polyfills';
 import { Spaghettify } from './spaghettify';
 export { Spaghettify };
 

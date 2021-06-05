@@ -3,7 +3,8 @@ import {
   getRawDataStub,
   rawDataMock,
   getMiddlewarePayloadStub,
-} from '../../../core';
+  progressBarHandler,
+} from '../../core';
 
 const httpClient = () => Promise.resolve(getRawDataStub());
 
@@ -13,6 +14,7 @@ const core = {
   getRawDataStub,
   rawDataMock,
   getMiddlewarePayloadStub,
+  progressBarHandler,
 };
 
 module.exports = core;

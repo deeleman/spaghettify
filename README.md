@@ -34,12 +34,12 @@ The project bundler will navigate through the entire application tree and will b
 
 You can instantiate and interact with Spaghettify through a convenient API catering with global toggles, route interceptors, exclusions and state persistence attribute flags and, last but not least, loading progress indicators and handlers.
 
-Once you successfully compile Spaghettify, you can import and instantiate it into your application via its static `Spaghettify.bootstrap(options)` method as follows:
+new Once you successfully compile Spaghettify, you can import and instantiate it into your application via its static `Spaghettify(options)` method as follows:
 
 ```html
 <script type="text/javascript" src="/dist/spaghettify.js"></script>
 <script type="text/javascript">
-  Spaghettify.bootstrap({
+  new Spaghettify({
     enabled: true,
     routes: ['*.html', 'content/*'],
     excludeByAttr: 'no-spa',
@@ -72,7 +72,7 @@ Spaghettify interacts with your current document by internally binding event han
 ```html
 <script type="text/javascript">
   // First, we instantiate Spaghettify
-  const spa = Spaghettify.bootstrap();
+  const spa = new Spaghettify();
   // Then we dispose it after use
   spa.destroy();
 </script>
@@ -87,7 +87,7 @@ Nonetheless, and for the sake of semantics, Spaghettify will then only consider 
 
 ```html
 <script type="text/javascript">
-  Spaghettify.bootstrap({
+  new Spaghettify({
     excludeByAttr: 'skip-me',
   });
 </script>
@@ -104,7 +104,7 @@ As we already learned above, the `loadProgress` configuration option can take a 
 
 ```html
 <script type="text/javascript">
-  Spaghettify.bootstrap({
+  new Spaghettify({
     loadProgress: true,
   });
 </script>
@@ -116,7 +116,7 @@ However, consumers might want to implement their own visual solutions for render
 
 ```html
 <script type="text/javascript">
-  Spaghettify.bootstrap({
+  new Spaghettify({
     loadProgress: function onLoad(progress) {
       console.log(progress); // Will log values from 0 to 100
     },
@@ -130,7 +130,7 @@ Spaghettify implements an experimental API for persisting state in selected, ann
 
 ```html
 <script type="text/javascript">
-  Spaghettify.bootstrap({
+  new Spaghettify({
     persistAttr: 'persist-id',
   });
 </script>
@@ -166,9 +166,9 @@ ESLint is currently enabled in the Spaghettify codebase and a linting audit will
 
 ### Testing your code contributions
 
-At the time of this writing, test are still in the works and only a little test coverage is available. However you can introduce tests in the codebase and execute them by running `npm test` or `yarn test` in your terminal console. Code coverage data is collected and stored in a conveniently formatted document at `/coverage/lcov-report`.
+You can introduce tests in the codebase or execute the existing ones by running `npm test` or `yarn test` in your terminal console. Code coverage data is collected and stored in a conveniently formatted document at `/coverage/lcov-report`.
 
-Please check back for updates shortly.
+You can also check online a comprehensive test coverage report at [Coveralls](https://coveralls.io/github/deeleman/spaghettify).
 
 ## Distributed under the MIT License
 
