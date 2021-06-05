@@ -1,4 +1,4 @@
-Spaghettify.bootstrap({
+new Spaghettify({
   enabled: true,
   routes: ['*.html', 'content/*'],
   excludeByAttr: 'no-spa',
