@@ -4,11 +4,9 @@
 ![Travis (.com)](https://img.shields.io/travis/com/deeleman/spaghettify)
 [![Coverage Status](https://coveralls.io/repos/github/deeleman/spaghettify/badge.svg?branch=master)](https://coveralls.io/github/deeleman/spaghettify?branch=master)
 
-Spaghettify implements a DOM interceptor and a _middleware-funneling processor_ that turns any static web site into a XHR-driven Single Page Application (SPA). 
+Spaghettify turns any static HTML site into a Single Page Application with AJAX-driven navigation and DOM elements sate persistence features. For doing so it implements a DOM interceptor and a _middleware-funneling processor_ that captures link click events, fetches each requested document via XHR and digests the response by streaming it through a series of middlware functions before refreshing the browser document.
 
-The business logic is pretty straightforward: A `Spaghettify` instance object will intercept all your website links and every time an eligible link is clicked, Spaghettify will spin up a functional reactive stream which will process the request payload, composing a final fully fleshed out DOM snapshot featuring all necessary transformations. In order to achieve this the `Spaghettify` underlying mechanism streams the payload through an extendable row of pluggable I/O middleware functions, each one observing the [Single Responsibility Principle](http://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) and digesting the input stream before passing it over to the next stage in the pipeline.
-
-These middleware handlers can be categorized into `onBeforeComplete` middleware hooks, which DO NOT mutate the current page DOM, and `onAfterComplete` middleware hooks that do apply their changes (hence mutate) directly on the current page DOM.
+These middleware functions are pluggable I/O handlers which observe the [Single Responsibility Principle](http://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) and conform a full pipeline of steps, which can be categorized into `onBeforeComplete` middleware hooks, which DO NOT mutate the current page DOM, and `onAfterComplete` middleware hooks that do apply their changes (hence mutate) directly on the current page DOM after it has been injected.
 
 The entire project is built on top of TypeScript and implements several polyfills and coding strategies to extend support to old legacy browsers, such as MSIE11.
 
@@ -28,13 +26,13 @@ Please execute `yarn build` or `npm run build` from your terminal window.
 
 The project bundler will navigate through the entire application tree and will build the JavaScript artifact into the `/dist` folder, bundled as `spaghettify.js`. Other useful bundles will be saved there as well for your convenience.
 
-> **Can I fetch Spaghettify from the npm registry?** At the moment of this writing I am focused on providing full test coverage to the project. Once that goal is accomplished, Spaghettify will also become a distributable package from the NPM registry. Please check back shortly for updates.
+> **Can I fetch Spaghettify from the npm registry?** At the moment of this writing the project priorities are to increase test coverage a bit further and broaden up the API capabilities with extended support for user-provided middleware hooks. For the time being, Spaghettify is meant to be consumed as a browser dependency, but distributing it as a NPM package is in the roadmap. Please check back shortly for updates.
 
 ## The Spaghettify API
 
 You can instantiate and interact with Spaghettify through a convenient API catering with global toggles, route interceptors, exclusions and state persistence attribute flags and, last but not least, loading progress indicators and handlers.
 
-new Once you successfully compile Spaghettify, you can import and instantiate it into your application via its static `Spaghettify(options)` method as follows:
+Once you successfully compile Spaghettify, you can import and instantiate it into your application as follows:
 
 ```html
 <script type="text/javascript" src="/dist/spaghettify.js"></script>
@@ -49,7 +47,7 @@ new Once you successfully compile Spaghettify, you can import and instantiate it
 </script>
 ```
 
-As you can see Spaghettify can take a configuration object upon instantiation. Please note that **all fields are optional** and even the whole configuration object itself is also optional. If not provided, Spgahettify wil lbe instantiated with the default options as described in the table below. 
+As you can see Spaghettify can take a configuration object upon instantiation. Please note that **all fields are optional** and even the whole configuration object itself is also optional. If not provided, Spaghettify will be instantiated with the default options as described in the table below. 
 
 ### The Spaghettify settings API
 
@@ -100,7 +98,7 @@ The configured attribute can be populated with any value or none at all. Spaghet
 
 ### Tip: Configuring custom load handlers
 
-As we already learned above, the `loadProgress` configuration option can take a `Boolean` primitive value or a _function handler_.
+As we saw already, the `loadProgress` configuration option can take a `Boolean` primitive value or a _function handler_.
 
 ```html
 <script type="text/javascript">
@@ -112,7 +110,7 @@ As we already learned above, the `loadProgress` configuration option can take a 
 
 If not explicitly configured, or set to `false`, no progress bar indicator will be displayed. If provided as `true`, Spaghettify will show an animated red progress bar indicator on top of the viewport. The progress bar shows the actual download progress.
 
-However, consumers might want to implement their own visual solutions for rendering progress bar information. Spaghettify gets them covered by providing a load progress handler that will expect an integer value parameter in its signature, which will take values from `0` to `100` as pages are requested and downloaded via HXR.
+However, consumers might want to implement their own visual solutions for rendering download progress information. Spaghettify gets them covered by providing a load progress handler that will expect an integer value parameter in its signature, which will take values from `0` to `100` as pages are requested and downloaded via HXR.
 
 ```html
 <script type="text/javascript">
@@ -148,25 +146,25 @@ It is worth highlighting that persistence will be applied on a full DOM `Node` b
 ## Running Spaghettify in development mode
 You can spawn a development environment by running `yarn dev` or `npm run dev` in the console.
 
-The system will generate all the artifacts and serve the sandbox site (more details below) from http://localhost:3000 (or any other port if 3000 is unavailable - please kindly check the terminal output for further details) in _watch mode_, so the application will be recompiled upon changes in the source code.
+The system will generate all the artifacts and serve the sandbox site (more details below) from http://localhost:3000 (or any other port of your choice if you append the `--port=PORT` param to the `dev` command, where `PORT` is the desired port) in _watch mode_, so the application will be recompiled upon changes in the source code.
 
 ### The sandbox site
 The sandbox site is a small, uber-simplistic web application that serves as a playground and testing arena for debugging Spaghettify in a live environment. It features a pretty simplistic styling, through a set of different, hierarchical pages depicting the following key features:
 
-- The main `index.html` contains an instance of Spaghettify inline for demo purposes. All the other documents implement such instance as an imported script. This allows to fire up Spaghettify from any document for demo purposes. In a real production scenario, Spaghettify can (and should) be imported and instantiated only once in the entry location.
-- Links to Page B are configured to bypass Spaghettify and force a full page load.
+- The main `index.html` contains an instance of Spaghettify inline for demo purposes. All the other documents implement such instance as an imported script. You do not need to import Spaghettify on each document, only the entry one. However, this allows to fire up Spaghettify from any document after reloading the browser window for demo purposes. In a real production scenario, Spaghettify can (and should) be imported and instantiated only once in the entry location.
+- Links to Page B are configured to bypass Spaghettify and force a full page load. Since it is imported there, Spaghettify will take over navigation from there.
 - Content is scattered in between the `/sandbox` root level and a child `/sandbox/content` subfolder so contributors can play around with link selectors pointing to subfolders, if necessary.
 - The main body contains dummy text with slight variations to ensure the page transition is noticeable.
 - The side menu contains diverse input controls to validate state persistence accross navigated pages.
-- Page A and pages within `/sandbox/content` feature either inline or imported custom JavaScript that Spaghettify will kindly digest.
+- Page A and pages within `/sandbox/content` feature either inline or imported custom JavaScript that Spaghettify will digest, reinject and execute when required.
 - Spaghettify supports forward and backwards history navigation. Browse around and give it a shot!
 ### Linting your code contributions
 
-ESLint is currently enabled in the Spaghettify codebase and a linting audit will be triggered upon building the project. You can configure your IDE to automatically provide linting assessment as you introduce changes. Moreover, you can trigger manually by running `npm run lint` or `yarn lint` in your terminal console.
+ESLint is currently enabled in the Spaghettify codebase and a linting audit will be triggered upon building the project. You can configure your IDE to automatically provide linting assessment as you introduce changes. Moreover, you can trigger code linting anytime by running `npm run lint` or `yarn lint` in your terminal console.
 
 ### Testing your code contributions
 
-You can introduce tests in the codebase or execute the existing ones by running `npm test` or `yarn test` in your terminal console. Code coverage data is collected and stored in a conveniently formatted document at `/coverage/lcov-report`.
+You can introduce tests in the codebase or execute the existing ones by running `npm test` or `yarn test` in your terminal console. Code coverage data is collected and stored in a conveniently formatted document at `/coverage/lcov-report`. For on-screen coverage reporting please append the `--coverage` param to the `test` command.
 
 You can also check online a comprehensive test coverage report at [Coveralls](https://coveralls.io/github/deeleman/spaghettify).
 
