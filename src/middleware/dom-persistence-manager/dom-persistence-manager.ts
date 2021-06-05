@@ -1,13 +1,7 @@
-import { MiddlewareHandler, MiddlewarePayload } from '../../core/stream-writer'
+import { MiddlewareHandler, MiddlewarePayload } from 'spaghettify/core';
 
-const persistedElementsMap = new Map<string, Node>();
 const PERSIST_ATTR_PREFIX = 'data-';
-
-const observeElementChanges = (persistenceKey: string, element: Node): void => {
-  element.addEventListener('change', () => {
-    persistedElementsMap.set(persistenceKey, element!);
-  });
-}
+const persistedElementsMap = new Map<string, Node>();
 
 const persistElements = (targetElement: Element, persistAttr: string): void => {
   if (persistAttr === PERSIST_ATTR_PREFIX) {
@@ -27,12 +21,10 @@ const persistElements = (targetElement: Element, persistAttr: string): void => {
       }
 
       const clonedPersistedElement = persistedElement?.cloneNode(true);
-      observeElementChanges(elementPersistenceKey, persistedElement!);
       persistedElementsMap.set(elementPersistenceKey, clonedPersistedElement!);
       element.replaceWith(clonedPersistedElement!);
     } else {
       const clonedPersistedElement = element?.cloneNode(true);
-      observeElementChanges(elementPersistenceKey, element!);
       persistedElementsMap.set(elementPersistenceKey, clonedPersistedElement);
       element.replaceWith(clonedPersistedElement!);
     }

@@ -1,1 +1,1 @@
-export * from './dom-persistence-manager';
+export { DOMPersistenceManager } from './dom-persistence-manager';
