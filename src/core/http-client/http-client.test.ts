@@ -5,7 +5,7 @@ import { ReadableStream, ReadableStreamDefaultReader } from 'web-streams-polyfil
 import { rawDataMock } from 'spaghettify/core/testing';
 import { httpClient } from './http-client';
 
-// js-dom lacks an implementation of TextDecoder when executed in browser environment so we polyfill it by hand.
+// jest-dom lacks an implementation of TextDecoder when executed in browser environment so we polyfill it by hand.
 Object.defineProperties(globalThis, {
   'TextDecoder': {
     value: TextDecoder,
